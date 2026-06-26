@@ -6,7 +6,7 @@ function AuthLayout() {
       <div className="grid w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl md:grid-cols-2">
         {/* Left Side */}
         <div className="flex flex-col justify-center bg-gradient-to-br from-indigo-600 to-blue-700 p-12 text-white">
-          <h1 className="text-5xl font-bold">Backend Ledger</h1>
+          <h1 className="text-5xl font-bold">Bank Ledger Management System</h1>
 
           <p className="mt-6 text-lg text-indigo-100">
             Secure authentication built with
@@ -21,7 +21,7 @@ function AuthLayout() {
             <p>✔ HTTP Only Cookies</p>
           </div>
         </div>
-    
+
         {/* Right Side */}
         <div className="flex items-center justify-center p-12">
           <div className="w-full max-w-md">
