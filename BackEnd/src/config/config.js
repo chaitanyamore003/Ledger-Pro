@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const requiredEnvVars = ["PORT", "MONGO_URL"];
+const requiredEnvVars = ["PORT", "MONGO_URL", "JWT_SECRET"];
 
 requiredEnvVars.forEach((key) => {
   if (!process.env[key]) {
@@ -13,6 +13,7 @@ requiredEnvVars.forEach((key) => {
 const config = {
   PORT: process.env.PORT,
   MONGO_URL: process.env.MONGO_URL,
+  JWT_SECRET: process.env.JWT_SECRET,
 };
 
 module.exports = config;
