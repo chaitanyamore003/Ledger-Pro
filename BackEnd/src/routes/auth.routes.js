@@ -9,6 +9,9 @@ authRouter.post("/register", authController.postRegister);
 /*POST /api/auth/login */
 authRouter.post("/login", authController.postLogin);
 
+/*POST /api/auth/logout */
+authRouter.post("/logout", authController.postLogout);
+
 /*POST /api/auth/refresh */
 authRouter.post("/refresh", authController.postRefreshToken);
 
