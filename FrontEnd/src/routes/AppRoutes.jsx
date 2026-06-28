@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Dashboard from "../pages/DashBoard";
 import Register from "../pages/Register";
+import Page404 from "../pages/404";
 
 import AuthLayout from "../layouts/AuthLayout";
 import ProtectedRoute from "./protectedRoutes";
@@ -27,6 +28,9 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        {/* 404 Page */}
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>
   );
