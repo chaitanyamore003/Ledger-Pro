@@ -90,7 +90,7 @@ function Register() {
       });
 
       // Redirect to dashboard
-      navigate("/dashboard");
+      navigate("/login");
     } catch (error) {
       setErrors([error.response?.data?.message || "Something went wrong."]);
     } finally {

@@ -35,9 +35,14 @@ axiosInstance.interceptors.response.use(
 
   async (error) => {
     const originalRequest = error.config;
+    // Don't refresh auth endpoints
+    const isAuthRequest = originalRequest.url.startsWith("/auth/");
 
-    // Refresh only once for a failed request
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !isAuthRequest
+    ) {
       originalRequest._retry = true;
 
       try {
