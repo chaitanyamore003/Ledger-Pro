@@ -1,8 +1,8 @@
-export function generateOtp() {
+function generateOtp() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-export function generateOtpHtml(name, otp) {
+function generateOtpHtml(name, otp) {
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -261,3 +261,28 @@ color:#94A3B8;
 </html>
 `;
 }
+
+function GenerateOtpText(name, otp) {
+  return `
+Hello ${name},
+
+Welcome to LedgerFlow!
+
+To complete your email verification, please use the One-Time Password (OTP) below:
+
+OTP: ${otp}
+
+This OTP is valid for the next 10 minutes.
+
+If you did not create a LedgerFlow account, you can safely ignore this email.
+
+Thank you,
+LedgerFlow Team
+`;
+}
+
+module.exports = {
+  generateOtp,
+  generateOtpHtml,
+  GenerateOtpText,
+};

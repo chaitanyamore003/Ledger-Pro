@@ -4,6 +4,7 @@ const {
   RegistrationText,
   generateRegistrationHtml,
 } = require("../utils/registrationEmail.util");
+const { generateOtpHtml, GenerateOtpText } = require("../utils/otpEmail.util");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -57,7 +58,20 @@ const sendRegistrationEmail = async (userEmail, name) => {
   );
 };
 
+//otp Email
+const sendVerificationEmail = async (userEmail, name, otp) => {
+  const subject = "Email Verification";
+
+  return await sendEmail(
+    userEmail,
+    subject,
+    GenerateOtpText(name, otp),
+    generateOtpHtml(name, otp),
+  );
+};
+
 module.exports = {
   sendEmail,
   sendRegistrationEmail,
+  sendVerificationEmail,
 };
