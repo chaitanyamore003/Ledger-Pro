@@ -29,9 +29,6 @@ function AuthProvider({ children }) {
 
   // Save authenticated user
   const login = ({ user, accessToken }) => {
-    console.log("LOGIN CALLED");
-    console.log(user);
-    console.log(accessToken);
     setUser(user);
     updateAccessToken(accessToken);
   };
