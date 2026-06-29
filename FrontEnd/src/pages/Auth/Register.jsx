@@ -90,7 +90,7 @@ function Register() {
       });
 
       // Redirect to dashboard
-      navigate(`/verify-email?email=${encodeURIComponent(formData.email)}`);
+      navigate(`/verify-email?email=${encodeURIComponent(data.data.email)}`);
     } catch (error) {
       setErrors([error.response?.data?.message || "Something went wrong."]);
     } finally {
