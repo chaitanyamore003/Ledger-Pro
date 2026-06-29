@@ -18,4 +18,7 @@ authRouter.post("/refresh", authController.postRefreshToken);
 /*POST /api/auth/verify-email */
 authRouter.post("/verify-email", authController.postVerifyEmail);
 
+/*POST /api/auth/resend-otp */
+authRouter.post("/resend-otp", authController.postResendOtp);
+
 module.exports = authRouter;

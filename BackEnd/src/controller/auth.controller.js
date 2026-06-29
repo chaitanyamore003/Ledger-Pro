@@ -429,10 +429,101 @@ const postVerifyEmail = async (req, res) => {
   }
 };
 
+/**
+ * - Resend Email OTP
+ * - POST /api/auth/resend-otp
+ */
+const postResendOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find user
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    // Email already verified
+    if (user.verified) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is already verified.",
+      });
+    }
+
+    // Check existing verification request
+    const verification = await emailVerificationModel.findOne({
+      user: user._id,
+      purpose: "EMAIL_VERIFICATION",
+    });
+
+    // Prevent OTP spam
+    if (
+      verification &&
+      Date.now() - verification.lastSentAt.getTime() < 60 * 1000
+    ) {
+      return res.status(429).json({
+        success: false,
+        message: "Please wait at least 1 minute before requesting a new OTP.",
+      });
+    }
+
+    // Remove previous OTP
+    if (verification) {
+      await verification.deleteOne();
+    }
+
+    // Generate OTP
+    const otp = generateOtp();
+
+    // Hash OTP
+    const otpHash = await bcrypt.hash(otp, 10);
+
+    // Save verification request
+    const newVerification = await emailVerificationModel.create({
+      user: user._id,
+      otpHash,
+      purpose: "EMAIL_VERIFICATION",
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+      lastSentAt: new Date(),
+    });
+
+    try {
+      // Send OTP email
+      await emailService.sendVerificationEmail(user.email, user.name, otp);
+    } catch (emailError) {
+      // Roll back verification if email fails
+      await newVerification.deleteOne();
+
+      return res.status(500).json({
+        success: false,
+        message: "Unable to send verification email. Please try again.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "A new verification code has been sent to your email.",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong. Please try again later.",
+    });
+  }
+};
+
 module.exports = {
   postRegister,
   postLogin,
   postRefreshToken,
   postLogout,
   postVerifyEmail,
+  postResendOtp,
 };

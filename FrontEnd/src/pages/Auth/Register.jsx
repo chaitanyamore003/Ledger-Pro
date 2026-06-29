@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/authApi";
-import useAuth from "../hooks/useAuth";
+import { registerUser } from "../../services/authApi";
+import useAuth from "../../hooks/useAuth";
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
 
   // Access authentication methods
   const { login } = useAuth();
-
-  // Login form data
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
 
   // Validation errors
   const [errors, setErrors] = useState([]);
@@ -24,33 +18,53 @@ function Login() {
   // Submit loading state
   const [loading, setLoading] = useState(false);
 
+  // Registration form data
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
   // Update form fields
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
 
     // Clear previous messages
-    setErrors([]);
-    setSuccess("");
+    if (errors.length) setErrors([]);
+    if (success) setSuccess("");
   };
 
-  // Handle login
+  // Handle registration
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setErrors([]);
+    setSuccess("");
+
     const validationErrors = [];
+
+    if (!formData.name.trim()) {
+      validationErrors.push("Full name is required.");
+    }
 
     if (!formData.email.trim()) {
       validationErrors.push("Email is required.");
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      validationErrors.push("Please enter a valid email address.");
     }
 
-    if (!formData.password.trim()) {
+    if (!formData.password) {
       validationErrors.push("Password is required.");
+    } else if (formData.password.length < 6) {
+      validationErrors.push("Password must be at least 6 characters.");
     }
 
-    if (validationErrors.length > 0) {
+    if (validationErrors.length) {
       setErrors(validationErrors);
       return;
     }
@@ -58,10 +72,9 @@ function Login() {
     try {
       setLoading(true);
 
-      const { data } = await loginUser(formData);
+      const { data } = await registerUser(formData);
 
       setSuccess(data.message);
-      setErrors([]);
 
       // Update global authentication state
       login({
@@ -69,11 +82,16 @@ function Login() {
         accessToken: data.data.accessToken,
       });
 
-      // Redirect to dashboard
-      navigate("/dashboard");
-    } catch (error) {
-      setSuccess("");
+      // Clear form
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+      });
 
+      // Redirect to dashboard
+      navigate(`/verify-email?email=${encodeURIComponent(formData.email)}`);
+    } catch (error) {
       setErrors([error.response?.data?.message || "Something went wrong."]);
     } finally {
       setLoading(false);
@@ -83,12 +101,14 @@ function Login() {
   return (
     <div className="w-full max-w-3xl">
       <div className="mb-8 text-center">
-        <h2 className="text-4xl font-bold text-slate-900">Welcome Back</h2>
+        <h2 className="text-4xl font-bold text-slate-900">
+          Create your account
+        </h2>
 
         <div className="mx-auto mt-3 h-1 w-20 rounded-full bg-indigo-600"></div>
 
         <p className="mt-4 text-slate-500">
-          Sign in to access your Backend Ledger account securely.
+          Join Backend Ledger and manage your account securely.
         </p>
       </div>
 
@@ -121,19 +141,36 @@ function Login() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="mb-2 block text-sm font-semibold text-slate-700">
-            Email Address
-          </label>
+        <div className="grid gap-6 md:grid-cols-2">
+          <div>
+            <label className="mb-2 block text-sm font-semibold text-slate-700">
+              Full Name
+            </label>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="john@example.com"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100"
-          />
+            <input
+              type="text"
+              name="name"
+              placeholder="John Doe"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-semibold text-slate-700">
+              Email Address
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="john@example.com"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100"
+            />
+          </div>
         </div>
 
         <div>
@@ -144,11 +181,15 @@ function Login() {
           <input
             type="password"
             name="password"
-            placeholder="Enter your password"
+            placeholder="Minimum 6 characters"
             value={formData.password}
             onChange={handleChange}
             className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100"
           />
+
+          <p className="mt-2 text-xs text-slate-500">
+            Password must contain at least 6 characters.
+          </p>
         </div>
 
         <button
@@ -179,27 +220,27 @@ function Login() {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                 />
               </svg>
-              Signing In...
+              Creating Account...
             </>
           ) : (
-            "Sign In"
+            "Create Account"
           )}
         </button>
       </form>
 
       <div className="mt-8 border-t border-slate-200 pt-6 text-center">
-        <p className="text-sm text-slate-600">Don't have an account?</p>
+        <p className="text-sm text-slate-600">Already have an account?</p>
 
         <button
           type="button"
-          onClick={() => navigate("/register")}
+          onClick={() => navigate("/login")}
           className="mt-2 font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline"
         >
-          Create Account
+          Sign In
         </button>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;
