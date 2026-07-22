@@ -5,41 +5,32 @@ import useAuth from "../../hooks/useAuth";
 
 function Login() {
   const navigate = useNavigate();
-  // Show Verify Email button for unverified accounts
   const [showVerifyButton, setShowVerifyButton] = useState(false);
-
-  // Access authentication methods
   const { login } = useAuth();
 
-  // Login form data
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  // Validation errors
   const [errors, setErrors] = useState([]);
-
-  // Success message
   const [success, setSuccess] = useState("");
-
-  // Submit loading state
   const [loading, setLoading] = useState(false);
 
-  // Update form fields
+  const inputClass =
+    "w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 transition-all placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-indigo-400 dark:focus:bg-slate-950 dark:focus:ring-indigo-500/20";
+
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
 
-    // Clear previous messages
     setErrors([]);
     setSuccess("");
     setShowVerifyButton(false);
   };
 
-  // Send a fresh OTP and redirect to Verify Email page
   const handleVerifyEmail = async () => {
     try {
       setLoading(true);
@@ -56,7 +47,6 @@ function Login() {
     }
   };
 
-  // Handle login
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -83,13 +73,11 @@ function Login() {
       setSuccess(data.message);
       setErrors([]);
 
-      // Update global authentication state
       login({
         user: data.data.user,
         accessToken: data.data.accessToken,
       });
 
-      // Redirect to dashboard
       navigate("/dashboard");
     } catch (error) {
       setSuccess("");
@@ -97,13 +85,9 @@ function Login() {
       const message = error.response?.data?.message || "Something went wrong.";
 
       setErrors([message]);
-
-      // Show Verify Email button only for unverified users
-      if (message === "Please verify your email before logging in.") {
-        setShowVerifyButton(true);
-      } else {
-        setShowVerifyButton(false);
-      }
+      setShowVerifyButton(
+        message === "Please verify your email before logging in.",
+      );
     } finally {
       setLoading(false);
     }
@@ -112,26 +96,30 @@ function Login() {
   return (
     <div className="w-full max-w-3xl">
       <div className="mb-8 text-center">
-        <h2 className="text-4xl font-bold text-slate-900">Welcome Back</h2>
+        <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
+          Welcome Back
+        </h2>
 
-        <div className="mx-auto mt-3 h-1 w-20 rounded-full bg-indigo-600"></div>
+        <div className="mx-auto mt-3 h-1 w-20 rounded-full bg-indigo-600 dark:bg-indigo-400" />
 
-        <p className="mt-4 text-slate-500">
+        <p className="mt-4 text-slate-500 dark:text-slate-400">
           Sign in to access your Backend Ledger account securely.
         </p>
       </div>
 
       {errors.length > 0 && (
-        <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-5">
+        <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-5 dark:border-red-900/70 dark:bg-red-950/40">
           <div className="mb-3 flex items-center gap-2">
-            <span className="text-xl">⚠️</span>
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-sm font-bold text-red-700 dark:bg-red-500/10 dark:text-red-300">
+              !
+            </span>
 
-            <h3 className="font-semibold text-red-700">
+            <h3 className="font-semibold text-red-700 dark:text-red-300">
               Please fix the following:
             </h3>
           </div>
 
-          <ul className="list-disc space-y-1 pl-6 text-sm text-red-600">
+          <ul className="list-disc space-y-1 pl-6 text-sm text-red-600 dark:text-red-200">
             {errors.map((error, index) => (
               <li key={index}>{error}</li>
             ))}
@@ -145,7 +133,7 @@ function Login() {
             type="button"
             onClick={handleVerifyEmail}
             disabled={loading}
-            className="w-full rounded-xl border border-indigo-600 bg-indigo-50 py-3 font-semibold text-indigo-600 transition hover:bg-indigo-100 disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-xl border border-indigo-600 bg-indigo-50 py-3 font-semibold text-indigo-600 transition hover:bg-indigo-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-indigo-400/70 dark:bg-indigo-500/10 dark:text-indigo-200 dark:hover:bg-indigo-500/20"
           >
             {loading ? "Sending Verification Email..." : "Verify Email"}
           </button>
@@ -153,18 +141,22 @@ function Login() {
       )}
 
       {success && (
-        <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-5">
+        <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-900/70 dark:bg-green-950/40">
           <div className="flex items-center gap-2">
-            <span className="text-xl">✅</span>
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-sm font-bold text-green-700 dark:bg-green-500/10 dark:text-green-300">
+              OK
+            </span>
 
-            <p className="font-medium text-green-700">{success}</p>
+            <p className="font-medium text-green-700 dark:text-green-300">
+              {success}
+            </p>
           </div>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="mb-2 block text-sm font-semibold text-slate-700">
+          <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">
             Email Address
           </label>
 
@@ -174,12 +166,12 @@ function Login() {
             placeholder="john@example.com"
             value={formData.email}
             onChange={handleChange}
-            className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100"
+            className={inputClass}
           />
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-semibold text-slate-700">
+          <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">
             Password
           </label>
 
@@ -189,14 +181,14 @@ function Login() {
             placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100"
+            className={inputClass}
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 py-3 font-semibold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 py-3 font-semibold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60 dark:from-indigo-500 dark:to-indigo-600"
         >
           {loading ? (
             <>
@@ -229,13 +221,15 @@ function Login() {
         </button>
       </form>
 
-      <div className="mt-8 border-t border-slate-200 pt-6 text-center">
-        <p className="text-sm text-slate-600">Don't have an account?</p>
+      <div className="mt-8 border-t border-slate-200 pt-6 text-center dark:border-slate-800">
+        <p className="text-sm text-slate-600 dark:text-slate-400">
+          Don't have an account?
+        </p>
 
         <button
           type="button"
           onClick={() => navigate("/register")}
-          className="mt-2 font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline"
+          className="mt-2 font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline dark:text-indigo-300 dark:hover:text-indigo-200"
         >
           Create Account
         </button>

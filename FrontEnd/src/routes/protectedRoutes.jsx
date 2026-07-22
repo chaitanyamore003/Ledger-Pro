@@ -7,8 +7,10 @@ function ProtectedRoute({ children }) {
   // Wait until authentication is initialized
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <h2 className="text-lg font-semibold text-slate-600">Loading...</h2>
+      <div className="flex min-h-screen items-center justify-center bg-white transition-colors dark:bg-slate-950">
+        <h2 className="text-lg font-semibold text-slate-600 dark:text-slate-300">
+          Loading...
+        </h2>
       </div>
     );
   }

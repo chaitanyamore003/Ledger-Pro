@@ -50,20 +50,23 @@ const features = [
 
 function Features() {
   return (
-    <section id="features" className="bg-slate-50 py-24">
+    <section
+      id="features"
+      className="bg-slate-50 py-24 transition-colors dark:bg-slate-900"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section Header */}
 
         <div className="mx-auto max-w-3xl text-center">
-          <span className="rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700">
+          <span className="rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-200">
             Features
           </span>
 
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-900">
+          <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
             Everything You Need to Manage Banking Operations
           </h2>
 
-          <p className="mt-5 text-lg leading-8 text-slate-500">
+          <p className="mt-5 text-lg leading-8 text-slate-500 dark:text-slate-300">
             LedgerFlow provides secure authentication, powerful ledger
             management, transaction tracking and enterprise-grade architecture
             for modern banking applications.

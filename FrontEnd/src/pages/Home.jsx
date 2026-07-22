@@ -9,7 +9,7 @@ import Footer from "../components/layout/Footer";
 
 function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white text-slate-950 transition-colors dark:bg-slate-950 dark:text-slate-100">
       <NavBar />
 
       <main>
@@ -17,14 +17,14 @@ function Home() {
 
         <TrustSection />
 
-        <Features  />
+        <Features />
 
-        <StatsSection  />
+        <StatsSection />
 
         <CTASection />
       </main>
 
-      <Footer  />
+      <Footer />
     </div>
   );
 }

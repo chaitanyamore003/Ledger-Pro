@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
 import { refreshToken } from "../services/authApi";
 import {
@@ -17,7 +17,7 @@ function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   // Sync React state with tokenService
-  const updateAccessToken = (token) => {
+  const updateAccessToken = useCallback((token) => {
     setAccessToken(token);
 
     if (token) {
@@ -25,19 +25,19 @@ function AuthProvider({ children }) {
     } else {
       clearAccessToken();
     }
-  };
+  }, []);
 
   // Save authenticated user
-  const login = ({ user, accessToken }) => {
+  const login = useCallback(({ user, accessToken }) => {
     setUser(user);
     updateAccessToken(accessToken);
-  };
+  }, [updateAccessToken]);
 
   // Clear authentication state
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser(null);
     updateAccessToken(null);
-  };
+  }, [updateAccessToken]);
 
   // Restore session on app startup
   useEffect(() => {
@@ -49,7 +49,7 @@ function AuthProvider({ children }) {
           user: data.data.user,
           accessToken: data.data.accessToken,
         });
-      } catch (error) {
+      } catch {
         logout();
       } finally {
         setLoading(false);
@@ -57,7 +57,7 @@ function AuthProvider({ children }) {
     };
 
     initializeAuth();
-  }, []);
+  }, [login, logout]);
 
   // Shared auth state and actions
   const value = {

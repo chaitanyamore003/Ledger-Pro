@@ -3,12 +3,16 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import AuthProvider from "./context/AuthProvider.jsx";
+import ThemeContextProvider from "./context/ThemeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* Global authentication state */}
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <ThemeContextProvider>
+      {/* Global authentication state */}
+
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ThemeContextProvider>
   </StrictMode>,
 );

@@ -5,27 +5,21 @@ import useAuth from "../../hooks/useAuth";
 
 function Register() {
   const navigate = useNavigate();
-
-  // Access authentication methods
   const { login } = useAuth();
 
-  // Validation errors
   const [errors, setErrors] = useState([]);
-
-  // Success message
   const [success, setSuccess] = useState("");
-
-  // Submit loading state
   const [loading, setLoading] = useState(false);
 
-  // Registration form data
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  // Update form fields
+  const inputClass =
+    "w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 transition-all placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-indigo-400 dark:focus:bg-slate-950 dark:focus:ring-indigo-500/20";
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -34,12 +28,10 @@ function Register() {
       [name]: value,
     }));
 
-    // Clear previous messages
     if (errors.length) setErrors([]);
     if (success) setSuccess("");
   };
 
-  // Handle registration
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -76,20 +68,17 @@ function Register() {
 
       setSuccess(data.message);
 
-      // Update global authentication state
       login({
         user: data.data.user,
         accessToken: data.data.accessToken,
       });
 
-      // Clear form
       setFormData({
         name: "",
         email: "",
         password: "",
       });
 
-      // Redirect to dashboard
       navigate(`/verify-email?email=${encodeURIComponent(data.data.email)}`);
     } catch (error) {
       setErrors([error.response?.data?.message || "Something went wrong."]);
@@ -101,28 +90,30 @@ function Register() {
   return (
     <div className="w-full max-w-3xl">
       <div className="mb-8 text-center">
-        <h2 className="text-4xl font-bold text-slate-900">
+        <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
           Create your account
         </h2>
 
-        <div className="mx-auto mt-3 h-1 w-20 rounded-full bg-indigo-600"></div>
+        <div className="mx-auto mt-3 h-1 w-20 rounded-full bg-indigo-600 dark:bg-indigo-400" />
 
-        <p className="mt-4 text-slate-500">
+        <p className="mt-4 text-slate-500 dark:text-slate-400">
           Join Backend Ledger and manage your account securely.
         </p>
       </div>
 
       {errors.length > 0 && (
-        <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-5">
+        <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-5 dark:border-red-900/70 dark:bg-red-950/40">
           <div className="mb-3 flex items-center gap-2">
-            <span className="text-xl">⚠️</span>
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-sm font-bold text-red-700 dark:bg-red-500/10 dark:text-red-300">
+              !
+            </span>
 
-            <h3 className="font-semibold text-red-700">
+            <h3 className="font-semibold text-red-700 dark:text-red-300">
               Please fix the following:
             </h3>
           </div>
 
-          <ul className="list-disc space-y-1 pl-6 text-sm text-red-600">
+          <ul className="list-disc space-y-1 pl-6 text-sm text-red-600 dark:text-red-200">
             {errors.map((error, index) => (
               <li key={index}>{error}</li>
             ))}
@@ -131,11 +122,15 @@ function Register() {
       )}
 
       {success && (
-        <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-5">
+        <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-900/70 dark:bg-green-950/40">
           <div className="flex items-center gap-2">
-            <span className="text-xl">✅</span>
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-sm font-bold text-green-700 dark:bg-green-500/10 dark:text-green-300">
+              OK
+            </span>
 
-            <p className="font-medium text-green-700">{success}</p>
+            <p className="font-medium text-green-700 dark:text-green-300">
+              {success}
+            </p>
           </div>
         </div>
       )}
@@ -143,7 +138,7 @@ function Register() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid gap-6 md:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-700">
+            <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">
               Full Name
             </label>
 
@@ -153,12 +148,12 @@ function Register() {
               placeholder="John Doe"
               value={formData.name}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100"
+              className={inputClass}
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-700">
+            <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">
               Email Address
             </label>
 
@@ -168,13 +163,13 @@ function Register() {
               placeholder="john@example.com"
               value={formData.email}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100"
+              className={inputClass}
             />
           </div>
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-semibold text-slate-700">
+          <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">
             Password
           </label>
 
@@ -184,10 +179,10 @@ function Register() {
             placeholder="Minimum 6 characters"
             value={formData.password}
             onChange={handleChange}
-            className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100"
+            className={inputClass}
           />
 
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
             Password must contain at least 6 characters.
           </p>
         </div>
@@ -195,7 +190,7 @@ function Register() {
         <button
           type="submit"
           disabled={loading}
-          className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 py-3 font-semibold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 py-3 font-semibold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60 dark:from-indigo-500 dark:to-indigo-600"
         >
           {loading ? (
             <>
@@ -228,13 +223,15 @@ function Register() {
         </button>
       </form>
 
-      <div className="mt-8 border-t border-slate-200 pt-6 text-center">
-        <p className="text-sm text-slate-600">Already have an account?</p>
+      <div className="mt-8 border-t border-slate-200 pt-6 text-center dark:border-slate-800">
+        <p className="text-sm text-slate-600 dark:text-slate-400">
+          Already have an account?
+        </p>
 
         <button
           type="button"
           onClick={() => navigate("/login")}
-          className="mt-2 font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline"
+          className="mt-2 font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline dark:text-indigo-300 dark:hover:text-indigo-200"
         >
           Sign In
         </button>
