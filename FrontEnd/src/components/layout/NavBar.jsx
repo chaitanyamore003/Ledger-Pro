@@ -8,13 +8,17 @@ function NavBar() {
   return (
     <header className="fixed inset-x-0 top-5 z-50 flex justify-center px-6">
       <div
-        className="flex h-18 w-full max-w-7xl items-center justify-between rounded-2xl border border-white/50
-      bg-white/75
-      px-7 shadow-lg shadow-slate-900/5 backdrop-blur-3xl transition-colors dark:border-slate-800/80 dark:bg-slate-950/75 dark:shadow-black/25"
+        className="relative flex h-18 w-full max-w-7xl items-center justify-between overflow-hidden rounded-2xl border border-white/45
+      bg-white/25
+      px-7 shadow-[0_8px_32px_rgba(15,23,42,0.12)] backdrop-blur-[28px] backdrop-saturate-[180%] transition-colors dark:border-white/10 dark:bg-slate-950/35 dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
       >
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/55 via-white/15 to-white/5 dark:from-white/12 dark:via-white/5 dark:to-transparent" />
+        <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-white/80 dark:bg-white/25" />
+        <div className="pointer-events-none absolute inset-x-10 bottom-0 h-px bg-slate-900/5 dark:bg-white/10" />
+
         {/* Logo */}
 
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="relative z-10 flex items-center gap-3">
           <img
             src="/ledger-flow-logo.png"
             alt="LedgerFlow"
@@ -34,7 +38,7 @@ function NavBar() {
 
         {/* Navigation */}
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="relative z-10 hidden items-center gap-8 md:flex">
           <a
             href="#home"
             className={navLinkClass}
@@ -66,11 +70,11 @@ function NavBar() {
 
         {/* Buttons */}
 
-        <div className="flex items-center gap-3">
+        <div className="relative z-10 flex items-center gap-3">
           <ThemeToggle />
           <Link
             to="/login"
-            className="rounded-xl border border-slate-300 bg-white/70 px-5 py-2 text-sm font-medium text-slate-700 transition hover:bg-white dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:bg-slate-800"
+            className="rounded-xl border border-white/45 bg-white/35 px-5 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl transition hover:bg-white/55 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
           >
             Login
           </Link>

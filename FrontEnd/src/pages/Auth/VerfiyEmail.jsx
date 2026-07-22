@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { verifyEmail, resendOtp } from "../../services/authApi";
 
 function VerifyEmail() {
@@ -14,7 +15,7 @@ function VerifyEmail() {
   const [success, setSuccess] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const inputClass = `w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-center text-3xl font-bold text-slate-900 transition-all placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-indigo-400 dark:focus:bg-slate-950 dark:focus:ring-indigo-500/20 ${
+  const inputClass = `w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-3xl font-bold text-slate-900 shadow-sm transition placeholder:text-base placeholder:font-medium placeholder:tracking-normal placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-100 dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 ${
     otp ? "tracking-[0.5em]" : "tracking-normal"
   }`;
 
@@ -70,58 +71,56 @@ function VerifyEmail() {
   };
 
   return (
-    <div className="w-full max-w-2xl">
-      <div className="mb-8 text-center">
-        <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
-          Verify Your Email
-        </h2>
-
-        <div className="mx-auto mt-3 h-1 w-20 rounded-full bg-indigo-600 dark:bg-indigo-400" />
-
-        <p className="mt-4 text-slate-500 dark:text-slate-400">
-          We've sent a verification code to
+    <div className="w-full">
+      <div className="mb-8">
+        <p className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">
+          Email verification
         </p>
 
-        <p className="font-semibold text-indigo-600 dark:text-indigo-300">
-          {email}
+        <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+          Verify your email
+        </h2>
+
+        <p className="mt-3 leading-7 text-slate-500 dark:text-slate-400">
+          Enter the 6-digit code sent to{" "}
+          <span className="font-semibold text-slate-700 dark:text-slate-200">
+            {email}
+          </span>
+          .
         </p>
       </div>
 
       {errors.length > 0 && (
-        <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-5 dark:border-red-900/70 dark:bg-red-950/40">
-          <div className="mb-3 flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-sm font-bold text-red-700 dark:bg-red-500/10 dark:text-red-300">
+        <div className="mb-6 rounded-2xl border border-red-200 bg-red-50/80 p-4 dark:border-red-900/70 dark:bg-red-950/40">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-100 text-sm font-bold text-red-700 dark:bg-red-500/10 dark:text-red-300">
               !
             </span>
 
-            <h3 className="font-semibold text-red-700 dark:text-red-300">
-              Verification Failed
-            </h3>
-          </div>
+            <div>
+              <h3 className="font-semibold text-red-700 dark:text-red-300">
+                Verification Failed
+              </h3>
 
-          <ul className="list-disc space-y-1 pl-6 text-sm text-red-600 dark:text-red-200">
-            {errors.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
-          </ul>
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-red-600 dark:text-red-200">
+                {errors.map((error, index) => (
+                  <li key={index}>{error}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       )}
 
       {success && (
-        <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-900/70 dark:bg-green-950/40">
-          <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-sm font-bold text-green-700 dark:bg-green-500/10 dark:text-green-300">
-              OK
-            </span>
-
-            <p className="font-medium text-green-700 dark:text-green-300">
-              {success}
-            </p>
-          </div>
+        <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4 dark:border-emerald-900/70 dark:bg-emerald-950/40">
+          <p className="font-medium text-emerald-700 dark:text-emerald-300">
+            {success}
+          </p>
         </div>
       )}
 
-      <form onSubmit={handleVerify} className="space-y-6">
+      <form onSubmit={handleVerify} className="space-y-5">
         <div>
           <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">
             Verification Code
@@ -145,22 +144,28 @@ function VerifyEmail() {
         <button
           type="submit"
           disabled={loading}
-          className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 py-3 font-semibold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60 dark:from-indigo-500 dark:to-indigo-600"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-700 px-4 py-3 font-semibold text-white transition hover:bg-indigo-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-indigo-500 dark:hover:bg-indigo-400"
         >
-          {loading ? "Verifying..." : "Verify Email"}
+          {loading ? (
+            "Verifying..."
+          ) : (
+            <>
+              Verify Email
+              <ArrowRight size={18} />
+            </>
+          )}
         </button>
       </form>
 
-      <div className="mt-8 border-t border-slate-200 pt-6 text-center dark:border-slate-800">
-        <p className="text-sm text-slate-600 dark:text-slate-400">
+      <div className="mt-8 border-t border-slate-200 pt-6 text-center text-sm dark:border-slate-800">
+        <span className="text-slate-600 dark:text-slate-400">
           Didn't receive the verification code?
-        </p>
-
+        </span>{" "}
         <button
           type="button"
           onClick={handleResend}
           disabled={resending}
-          className="mt-2 font-semibold text-indigo-600 transition hover:text-indigo-700 hover:underline disabled:opacity-60 dark:text-indigo-300 dark:hover:text-indigo-200"
+          className="font-semibold text-indigo-700 transition hover:text-indigo-800 hover:underline disabled:opacity-60 dark:text-indigo-300 dark:hover:text-indigo-200"
         >
           {resending ? "Sending..." : "Resend OTP"}
         </button>

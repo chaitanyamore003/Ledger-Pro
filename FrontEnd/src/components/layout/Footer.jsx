@@ -1,3 +1,4 @@
+import { Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const navigation = [
@@ -76,10 +77,27 @@ function Footer() {
 
         {/* Bottom */}
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-8 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400 md:flex-row">
-          <p>© {new Date().getFullYear()} LedgerFlow. All rights reserved.</p>
+        <div className="mt-16 grid gap-4 border-t border-slate-200 pt-8 text-center text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400 md:grid-cols-3 md:text-left">
+          <p>
+            &copy; {new Date().getFullYear()} LedgerFlow. All rights reserved.
+          </p>
 
-          <p>Built with React, Node.js, Express and MongoDB.</p>
+          <p className="flex items-center justify-center gap-1.5">
+            Made with
+            <Heart
+              aria-hidden="true"
+              size={14}
+              className="fill-red-500 text-red-500"
+            />
+            by
+            <span className="font-medium text-slate-700 dark:text-slate-200">
+              Chaitanya More
+            </span>
+          </p>
+
+          <p className="md:text-right">
+            Built with React, Node.js, Express and MongoDB.
+          </p>
         </div>
       </div>
     </footer>
