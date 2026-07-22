@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
+const userModel = require("../models/user.model");
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   try {
-    // Get Authorization header
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -13,20 +13,39 @@ const authMiddleware = (req, res, next) => {
       });
     }
 
-    // Extract token
     const token = authHeader.split(" ")[1];
 
-    // Verify JWT
     const decoded = jwt.verify(token, config.JWT_SECRET);
 
-    // Attach user info to request
-    req.user = decoded;
+    const user = await userModel.findById(decoded.id);
 
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    req.user = user;
     next();
   } catch (error) {
-    return res.status(401).json({
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({
+        success: false,
+        message: "Access token expired",
+      });
+    }
+
+    if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid access token",
+      });
+    }
+
+    return res.status(500).json({
       success: false,
-      message: "Invalid or expired access token",
+      message: "Internal server error",
     });
   }
 };

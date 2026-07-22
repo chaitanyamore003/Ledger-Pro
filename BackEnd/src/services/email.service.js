@@ -1,9 +1,13 @@
 const nodemailer = require("nodemailer");
 const config = require("../config/config");
 const {
-  RegistrationText,
-  generateRegistrationHtml,
-} = require("../utils/registrationEmail.util");
+  generateTransactionHtml,
+  generateTransactionText,
+} = require("../utils/transactionEmail.util");
+const {
+  generateTransactionFailureText,
+  generateTransactionFailureHtml,
+} = require("../utils/transactionFailureEmail.util.js");
 const { generateOtpHtml, GenerateOtpText } = require("../utils/otpEmail.util");
 
 const transporter = nodemailer.createTransport({
@@ -47,17 +51,6 @@ const sendEmail = async (to, subject, text = "", html = "") => {
   }
 };
 
-// Registration Email
-const sendRegistrationEmail = async (userEmail, name) => {
-  const subject = "🎉 Welcome to LedgerFlow";
-  return await sendEmail(
-    userEmail,
-    subject,
-    RegistrationText(name),
-    generateRegistrationHtml(name),
-  );
-};
-
 //otp Email
 const sendVerificationEmail = async (userEmail, name, otp) => {
   const subject = "Email Verification";
@@ -70,8 +63,72 @@ const sendVerificationEmail = async (userEmail, name, otp) => {
   );
 };
 
+//transcation Emails
+
+// Transaction successfull Email
+const sendTransactionEmail = async (
+  userEmail,
+  name,
+  amount,
+  fromAccount,
+  toAccount,
+  transactionId,
+) => {
+  const subject = "Transaction Successful";
+
+  return await sendEmail(
+    userEmail,
+    subject,
+    generateTransactionText(
+      name,
+      amount,
+      fromAccount,
+      toAccount,
+      transactionId,
+    ),
+    generateTransactionHtml(
+      name,
+      amount,
+      fromAccount,
+      toAccount,
+      transactionId,
+    ),
+  );
+};
+
+// Transaction unsuccessfull Email
+const sendTransactionFailureEmail = async (
+  userEmail,
+  name,
+  amount,
+  fromAccount,
+  toAccount,
+  reason,
+) => {
+  const subject = "Transaction Failed";
+
+  return await sendEmail(
+    userEmail,
+    subject,
+    generateTransactionFailureText(
+      name,
+      amount,
+      fromAccount,
+      toAccount,
+      reason,
+    ),
+    generateTransactionFailureHtml(
+      name,
+      amount,
+      fromAccount,
+      toAccount,
+      reason,
+    ),
+  );
+};
+
 module.exports = {
-  sendEmail,
-  sendRegistrationEmail,
   sendVerificationEmail,
+  sendTransactionEmail,
+  sendTransactionFailureEmail,
 };

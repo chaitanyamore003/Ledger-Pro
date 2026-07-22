@@ -7,6 +7,7 @@ function ThemeToggle() {
 
   return (
     <motion.button
+      cursor="pointer"
       type="button"
       whileTap={{ scale: 0.9 }}
       animate={{ rotate: theme === "dark" ? 180 : 0 }}
@@ -19,6 +20,7 @@ function ThemeToggle() {
         bg-white/70
         text-slate-700
         transition
+        cursor-pointer
         hover:bg-white
         disabled:cursor-not-allowed disabled:opacity-70
         dark:border-slate-700
