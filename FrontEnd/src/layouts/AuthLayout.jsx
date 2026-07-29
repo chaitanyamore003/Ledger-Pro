@@ -2,6 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import { CheckCircle2 } from "lucide-react";
 import ThemeToggle from "../components/ui/ThemeToggle";
 import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 
 const features = [
   "JWT Authentication",
@@ -100,8 +101,17 @@ function AuthLayout() {
             }}
           >
             <div className="relative w-full rounded-[40px] border border-black/10 bg-white px-16 py-14 shadow-[0_40px_120px_rgba(0,0,0,0.08)] transition-all duration-500 dark:border-white/10 dark:bg-neutral-950 dark:shadow-[0_40px_120px_rgba(0,0,0,0.55)]">
-              {/* Subtle Glow */}
+              {/* Glow */}
               <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#FFBA7D]/10 blur-3xl" />
+
+              {/* Back Button */}
+              <Link
+                to="/"
+                className="mb-10 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-all duration-300 hover:border-[#FFBA7D] hover:bg-[#FFBA7D]/10 hover:text-black dark:border-white/10 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-[#FFBA7D] dark:hover:bg-[#FFBA7D]/10 dark:hover:text-white"
+              >
+                <ArrowLeft size={16} />
+                Back to Home
+              </Link>
 
               <Outlet />
             </div>

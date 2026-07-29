@@ -3,281 +3,330 @@ function generateOtp() {
 }
 
 function generateOtpHtml(name, otp) {
-  return `
-<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="en">
 
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Verify Your Email | LedgerFlow</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Your Email | LEDGER PRO</title>
 </head>
 
-<body style="margin:0;padding:0;background:#F1F5F9;font-family:Arial,Helvetica,sans-serif;">
+<body style="margin:0;padding:40px 16px;background:#F5F5F5;font-family:Arial,Helvetica,sans-serif;">
 
-<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="padding:32px 16px;">
-<tr>
-<td align="center">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">
 
-<table
-role="presentation"
-width="100%"
-cellpadding="0"
-cellspacing="0"
-style="
-max-width:620px;
-background:#ffffff;
-border-radius:18px;
-overflow:hidden;
-box-shadow:0 8px 24px rgba(15,23,42,.08);
-">
+        <table
+          role="presentation"
+          width="100%"
+          cellpadding="0"
+          cellspacing="0"
+          style="
+            max-width:650px;
+            background:#FFFFFF;
+            border:1px solid #ECECEC;
+            border-radius:24px;
+            overflow:hidden;
+          ">
 
-<!-- Header -->
+          <!-- Header -->
 
-<tr>
-<td
-align="center"
-style="
-padding:42px 32px;
-background:linear-gradient(135deg,#4F46E5,#2563EB);
-">
+          <tr>
+            <td
+              align="center"
+              style="
+                padding:56px 40px;
+                border-bottom:1px solid #EFEFEF;
+              ">
 
-<h1
-style="
-margin:0;
-font-size:34px;
-font-weight:700;
-letter-spacing:.5px;
-color:#ffffff;
-">
-LedgerFlow
-</h1>
+              <h1
+                style="
+                  margin:0;
+                  font-size:42px;
+                  font-weight:800;
+                  letter-spacing:1px;
+                  font-family:Arial,Helvetica,sans-serif;
+                ">
 
-<p
-style="
-margin:10px 0 0;
-font-size:15px;
-color:#E0E7FF;
-">
-Enterprise Bank Ledger Management System
-</p>
+                <span style="color:#111111;">LEDGER</span>
+                <span style="color:#FFBA7D;"> PRO</span>
 
-</td>
-</tr>
+              </h1>
 
-<!-- Body -->
+              <p
+                style="
+                  margin:16px 0 0;
+                  color:#666666;
+                  font-size:15px;
+                  line-height:28px;
+                ">
+                Modern Banking Platform
+              </p>
 
-<tr>
-<td style="padding:42px 36px;">
+            </td>
+          </tr>
 
-<h2
-style="
-margin:0;
-font-size:28px;
-color:#0F172A;
-">
-Verify Your Email
-</h2>
+          <!-- Body -->
 
-<p
-style="
-margin:24px 0 0;
-font-size:16px;
-line-height:28px;
-color:#475569;
-">
-Hello <strong>${name}</strong>,
-</p>
+          <tr>
+            <td style="padding:52px 42px;">
 
-<p
-style="
-margin:18px 0 0;
-font-size:16px;
-line-height:28px;
-color:#475569;
-">
-Thank you for choosing <strong>LedgerFlow</strong>.
-To activate your account and continue securely, please verify your email address using the One-Time Password (OTP) below.
-</p>
+              <h2
+                style="
+                  margin:0;
+                  color:#111111;
+                  font-size:34px;
+                  font-weight:700;
+                ">
+                Verify your email
+              </h2>
 
-<!-- OTP Card -->
+              <p
+                style="
+                  margin:28px 0 0;
+                  color:#555555;
+                  font-size:17px;
+                  line-height:32px;
+                ">
+                Hello <strong>${name}</strong>,
+              </p>
 
-<table
-role="presentation"
-width="100%"
-cellpadding="0"
-cellspacing="0"
-style="
-margin:36px 0;
-background:#F8FAFC;
-border:2px solid #E2E8F0;
-border-radius:14px;
-">
+              <p
+                style="
+                  margin:18px 0 0;
+                  color:#555555;
+                  font-size:17px;
+                  line-height:32px;
+                ">
+                Welcome to <strong>LEDGER PRO</strong>.
 
-<tr>
-<td align="center" style="padding:32px;">
+                To activate your account securely, enter the verification code below.
 
-<p
-style="
-margin:0;
-font-size:13px;
-font-weight:600;
-letter-spacing:2px;
-text-transform:uppercase;
-color:#64748B;
-">
-Verification Code
-</p>
+              </p>
 
-<p
-style="
-margin:18px 0 0;
-font-size:42px;
-font-weight:700;
-letter-spacing:12px;
-color:#2563EB;
-font-family:Arial,Helvetica,sans-serif;
-">
-${otp}
-</p>
+              <!-- OTP -->
 
-</td>
-</tr>
+              <table
+                role="presentation"
+                width="100%"
+                cellpadding="0"
+                cellspacing="0"
+                style="
+                  margin:42px 0;
+                  background:#FFF8F2;
+                  border:2px solid #FFE2C8;
+                  border-radius:20px;
+                ">
 
-</table>
+                <tr>
 
-<!-- Security Notice -->
+                  <td
+                    align="center"
+                    style="padding:40px;">
 
-<div
-style="
-background:#EEF2FF;
-border-left:4px solid #4F46E5;
-border-radius:10px;
-padding:20px;
-">
+                    <p
+                      style="
+                        margin:0;
+                        color:#777777;
+                        font-size:13px;
+                        font-weight:700;
+                        letter-spacing:4px;
+                        text-transform:uppercase;
+                      ">
+                      Verification Code
+                    </p>
 
-<p
-style="
-margin:0;
-font-size:15px;
-line-height:28px;
-color:#334155;
-">
+                    <p
+                      style="
+                        margin:24px 0 0;
+                        color:#FFBA7D;
+                        font-size:52px;
+                        font-weight:800;
+                        letter-spacing:16px;
+                        font-family:Arial,Helvetica,sans-serif;
+                      ">
+                      ${otp}
+                    </p>
 
-<strong>Security Notice</strong>
+                    <p
+                      style="
+                        margin:18px 0 0;
+                        color:#888888;
+                        font-size:14px;
+                      ">
+                      Valid for 10 minutes
+                    </p>
 
-<br><br>
+                  </td>
 
-• This verification code is valid for <strong>10 minutes</strong>.
+                </tr>
 
-<br>
+              </table>
 
-• This OTP can only be used once.
+              <!-- Security -->
 
-<br>
+              <table
+                role="presentation"
+                width="100%"
+                cellpadding="0"
+                cellspacing="0"
+                style="
+                  background:#FAFAFA;
+                  border-left:4px solid #FFBA7D;
+                  border-radius:12px;
+                ">
 
-• Never share this code with anyone.
+                <tr>
 
-<br>
+                  <td style="padding:24px;">
 
-• LedgerFlow will never ask for your OTP, password, or banking credentials.
+                    <p
+                      style="
+                        margin:0;
+                        color:#111111;
+                        font-size:18px;
+                        font-weight:700;
+                      ">
+                      Security Tips
+                    </p>
 
-</p>
+                    <p
+                      style="
+                        margin:18px 0 0;
+                        color:#555555;
+                        font-size:15px;
+                        line-height:30px;
+                      ">
 
-</div>
+                      • This verification code expires in
+                      <strong>10 minutes</strong>.
 
-<p
-style="
-margin:32px 0 0;
-font-size:15px;
-line-height:28px;
-color:#64748B;
-">
-If you did not create a LedgerFlow account, you can safely ignore this email. No account will be activated unless this email address is verified.
-</p>
+                      <br><br>
 
-</td>
-</tr>
+                      • This OTP can only be used once.
 
-<!-- Footer -->
+                      <br><br>
 
-<tr>
-<td
-align="center"
-style="
-padding:28px;
-background:#FAFAFA;
-border-top:1px solid #E2E8F0;
-">
+                      • Never share your OTP with anyone.
 
-<p
-style="
-margin:0;
-font-size:16px;
-font-weight:700;
-color:#1E293B;
-">
-LedgerFlow
-</p>
+                      <br><br>
 
-<p
-style="
-margin:8px 0 0;
-font-size:13px;
-color:#64748B;
-">
-Enterprise Bank Ledger Management System
-</p>
+                      • LEDGER PRO will never ask for your password or verification code.
 
-<p
-style="
-margin:18px 0 0;
-font-size:12px;
-color:#94A3B8;
-line-height:22px;
-">
-This is an automated security email. Please do not reply to this message.
-</p>
+                    </p>
 
-<p
-style="
-margin:10px 0 0;
-font-size:12px;
-color:#94A3B8;
-">
-© ${new Date().getFullYear()} LedgerFlow. All rights reserved.
-</p>
+                  </td>
 
-</td>
-</tr>
+                </tr>
 
-</table>
+              </table>
 
-</td>
-</tr>
-</table>
+              <p
+                style="
+                  margin:34px 0 0;
+                  color:#666666;
+                  font-size:15px;
+                  line-height:30px;
+                ">
+
+                If you didn't create a LEDGER PRO account,
+                you can safely ignore this email.
+
+                No account will be activated until your email address is verified.
+
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+
+          <tr>
+
+            <td
+              align="center"
+              style="
+                padding:42px;
+                background:#FAFAFA;
+                border-top:1px solid #EEEEEE;
+              ">
+
+              <p
+                style="
+                  margin:0;
+                  font-size:28px;
+                  font-weight:800;
+                  font-family:Arial,Helvetica,sans-serif;
+                ">
+
+                <span style="color:#111111;">LEDGER</span>
+                <span style="color:#FFBA7D;"> PRO</span>
+
+              </p>
+
+              <p
+                style="
+                  margin:14px 0 0;
+                  color:#666666;
+                  font-size:14px;
+                ">
+                Modern Banking Platform
+              </p>
+
+              <p
+                style="
+                  margin:24px 0 0;
+                  color:#999999;
+                  font-size:12px;
+                  line-height:22px;
+                ">
+                This is an automated security email.<br>
+                Please do not reply to this message.
+              </p>
+
+              <p
+                style="
+                  margin:14px 0 0;
+                  color:#999999;
+                  font-size:12px;
+                ">
+                © ${new Date().getFullYear()} LEDGER PRO. All rights reserved.
+              </p>
+
+            </td>
+
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
 
 </body>
-</html>
-`;
+
+</html>`;
 }
 
 function GenerateOtpText(name, otp) {
   return `
 Hello ${name},
 
-Welcome to LedgerFlow!
+Welcome to LEDGER PRO!
 
-To complete your email verification, please use the One-Time Password (OTP) below:
+To verify your email address, use the One-Time Password (OTP) below:
 
-OTP: ${otp}
+Verification Code: ${otp}
 
-This OTP is valid for the next 10 minutes.
+This verification code expires in 10 minutes.
 
-If you did not create a LedgerFlow account, you can safely ignore this email.
+If you did not create a LEDGER PRO account, you can safely ignore this email.
 
 Thank you,
-LedgerFlow Team
+
+LEDGER PRO Team
 `;
 }
 

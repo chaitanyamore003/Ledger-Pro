@@ -6,59 +6,325 @@ const generateTransactionHtml = (
   transactionId,
 ) => {
   return `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+    <!DOCTYPE html>
+<html lang="en">
 
-      <div style="background:#1e293b;padding:20px;text-align:center;">
-        <h2 style="color:#ffffff;margin:0;">LedgerFlow</h2>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transaction Successful | LEDGER PRO</title>
+</head>
 
-      <div style="padding:30px;">
-        <h3>Hello ${name},</h3>
+<body style="margin:0;padding:40px 16px;background:#F5F5F5;font-family:Arial,Helvetica,sans-serif;">
 
-        <p>Your transaction has been completed successfully.</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+<tr>
+<td align="center">
 
-        <table style="width:100%;border-collapse:collapse;margin-top:20px;">
-          <tr>
-            <td><strong>Amount</strong></td>
-            <td>₹${amount}</td>
-          </tr>
+<table
+role="presentation"
+width="100%"
+cellpadding="0"
+cellspacing="0"
+style="
+max-width:650px;
+background:#FFFFFF;
+border:1px solid #ECECEC;
+border-radius:24px;
+overflow:hidden;
+">
 
-          <tr>
-            <td><strong>From Account</strong></td>
-            <td>${fromAccount}</td>
-          </tr>
+<!-- Header -->
 
-          <tr>
-            <td><strong>To Account</strong></td>
-            <td>${toAccount}</td>
-          </tr>
+<tr>
+<td
+align="center"
+style="
+padding:56px 40px;
+border-bottom:1px solid #EFEFEF;
+">
 
-          <tr>
-            <td><strong>Transaction ID</strong></td>
-            <td>${transactionId}</td>
-          </tr>
+<h1
+style="
+margin:0;
+font-size:42px;
+font-weight:800;
+letter-spacing:1px;
+font-family:Arial,Helvetica,sans-serif;
+">
 
-          <tr>
-            <td><strong>Status</strong></td>
-            <td style="color:green;"><strong>SUCCESS</strong></td>
-          </tr>
-        </table>
+<span style="color:#111111;">LEDGER</span>
+<span style="color:#FFBA7D;"> PRO</span>
 
-        <p style="margin-top:30px;">
-          Thank you for choosing <strong>LedgerFlow</strong>.
-        </p>
+</h1>
 
-        <p>
-          If you did not authorize this transaction, please contact our support team immediately.
-        </p>
+<p
+style="
+margin:16px 0 0;
+font-size:15px;
+color:#666666;
+line-height:28px;
+">
+Modern Banking Platform
+</p>
 
-        <p>
-          Regards,<br>
-          <strong>LedgerFlow Team</strong>
-        </p>
-      </div>
+</td>
+</tr>
 
-    </div>
+<!-- Body -->
+
+<tr>
+<td style="padding:50px 42px;">
+
+<h2
+style="
+margin:0;
+font-size:34px;
+font-weight:700;
+color:#111111;
+">
+Transaction Successful
+</h2>
+
+<p
+style="
+margin:26px 0 0;
+font-size:17px;
+line-height:32px;
+color:#555555;
+">
+Hello <strong>${name}</strong>,
+</p>
+
+<p
+style="
+margin:18px 0 0;
+font-size:17px;
+line-height:32px;
+color:#555555;
+">
+Your transaction has been completed successfully.
+Below are the details of your transaction.
+</p>
+
+<!-- Amount Card -->
+
+<table
+role="presentation"
+width="100%"
+cellpadding="0"
+cellspacing="0"
+style="
+margin:40px 0;
+background:#FFF8F2;
+border:2px solid #FFE2C8;
+border-radius:20px;
+">
+
+<tr>
+<td align="center" style="padding:38px;">
+
+<p
+style="
+margin:0;
+font-size:13px;
+font-weight:700;
+letter-spacing:3px;
+text-transform:uppercase;
+color:#777777;
+">
+Amount Transferred
+</p>
+
+<p
+style="
+margin:20px 0 0;
+font-size:44px;
+font-weight:800;
+color:#FFBA7D;
+">
+₹${amount}
+</p>
+
+</td>
+</tr>
+
+</table>
+
+<!-- Transaction Details -->
+
+<table
+role="presentation"
+width="100%"
+cellpadding="14"
+cellspacing="0"
+style="
+border:1px solid #EEEEEE;
+border-radius:14px;
+">
+
+<tr>
+<td style="color:#666;font-weight:600;">From Account</td>
+<td align="right" style="color:#111;">${fromAccount}</td>
+</tr>
+
+<tr>
+<td style="color:#666;font-weight:600;">To Account</td>
+<td align="right" style="color:#111;">${toAccount}</td>
+</tr>
+
+<tr>
+<td style="color:#666;font-weight:600;">Transaction ID</td>
+<td align="right" style="color:#111;">${transactionId}</td>
+</tr>
+
+<tr>
+<td style="color:#666;font-weight:600;">Status</td>
+<td
+align="right"
+style="
+font-weight:700;
+color:#16A34A;
+">
+SUCCESS
+</td>
+</tr>
+
+</table>
+
+<!-- Notice -->
+
+<table
+role="presentation"
+width="100%"
+cellpadding="0"
+cellspacing="0"
+style="
+margin-top:36px;
+background:#FAFAFA;
+border-left:4px solid #FFBA7D;
+border-radius:12px;
+">
+
+<tr>
+
+<td style="padding:24px;">
+
+<p
+style="
+margin:0;
+font-size:18px;
+font-weight:700;
+color:#111111;
+">
+Security Notice
+</p>
+
+<p
+style="
+margin:18px 0 0;
+font-size:15px;
+line-height:30px;
+color:#555555;
+">
+
+• Keep this email for your transaction records.
+
+<br><br>
+
+• Never share your banking credentials.
+
+<br><br>
+
+• If you don't recognize this transaction, contact support immediately.
+
+</p>
+
+</td>
+
+</tr>
+
+</table>
+
+<p
+style="
+margin:34px 0 0;
+font-size:15px;
+line-height:30px;
+color:#666666;
+">
+Thank you for choosing <strong>LEDGER PRO</strong>.
+We appreciate your trust in our secure banking platform.
+</p>
+
+</td>
+</tr>
+
+<!-- Footer -->
+
+<tr>
+<td
+align="center"
+style="
+padding:40px;
+background:#FAFAFA;
+border-top:1px solid #EEEEEE;
+">
+
+<p
+style="
+margin:0;
+font-size:28px;
+font-weight:800;
+">
+
+<span style="color:#111111;">LEDGER</span>
+
+<span style="color:#FFBA7D;"> PRO</span>
+
+</p>
+
+<p
+style="
+margin:14px 0 0;
+font-size:14px;
+color:#666666;
+">
+Modern Banking Platform
+</p>
+
+<p
+style="
+margin:24px 0 0;
+font-size:12px;
+line-height:22px;
+color:#999999;
+">
+This is an automated transaction confirmation email.<br>
+Please do not reply to this message.
+</p>
+
+<p
+style="
+margin:14px 0 0;
+font-size:12px;
+color:#999999;
+">
+© ${new Date().getFullYear()} LEDGER PRO. All rights reserved.
+</p>
+
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+
+</html>
   `;
 };
 
@@ -70,25 +336,32 @@ const generateTransactionText = (
   transactionId,
 ) => {
   return `
-Hi ${name},
+Hello ${name},
 
 Your transaction has been completed successfully.
 
 Transaction Details
-------------------------------
-Amount           : ₹${amount}
-From Account     : ${fromAccount}
-To Account       : ${toAccount}
-Transaction ID   : ${transactionId}
-Status           : SUCCESS
+--------------------------------------------------
 
-Thank you for choosing LedgerFlow.
+Amount            : ₹${amount}
+From Account      : ${fromAccount}
+To Account        : ${toAccount}
+Transaction ID    : ${transactionId}
+Status            : SUCCESS
 
-If you did not authorize this transaction, please contact our support team immediately.
+--------------------------------------------------
+
+Thank you for choosing LEDGER PRO.
+
+For your security:
+• Keep this email for your records.
+• Never share your banking credentials or OTP with anyone.
+• If you do not recognize this transaction, please contact our support team immediately.
 
 Regards,
-LedgerFlow Team
-`;
+
+LEDGER PRO Team
+Modern Banking Platform`;
 };
 
 module.exports = {

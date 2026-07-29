@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "../ui/ThemeToggle";
+import useScrollDirection from "../../hooks/useScrollDirection";
+import { useTheme } from "../../hooks/useTheme";
 
 const navigation = [
   { name: "Features", href: "#features" },
@@ -10,20 +13,45 @@ const navigation = [
 ];
 
 function NavBar() {
+  const { theme } = useTheme();
+
+  const showLogo = useScrollDirection();
+
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 pt-8">
         {/* Brand */}
 
-        <Link to="/" className="select-none">
-          <h1 className="font-brand text-7xl leading-none tracking-tight text-black transition duration-300 hover:opacity-80 dark:text-white">
-            LEDGER PRO
-          </h1>
-        </Link>
+        <AnimatePresence>
+          {showLogo && (
+            <motion.div
+              initial={{ opacity: 0, x: -30, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -30, scale: 0.9 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+            >
+              <Link
+                to="/"
+                className="inline-flex items-center transition-opacity duration-300 hover:opacity-80"
+              >
+                <img
+                  src={
+                    theme === "dark"
+                      ? "/ledger-pro-symbol-no-background-white.png"
+                      : "/ledger-pro-logo-no-background.png"
+                  }
+                  alt="Ledger Pro Logo"
+                  className="h-65 w-auto object-contain"
+                  draggable={false}
+                />
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Floating Navigation */}
 
-        <div className="hidden items-center rounded-full border border-black/10 bg-white px-3 py-2 shadow-sm lg:flex dark:border-white/10 dark:bg-black">
+        <div className="fixed top-6 right-6 z-50 hidden items-center rounded-full border border-black/10 bg-white/90 px-3 py-2 shadow-xl backdrop-blur-xl lg:flex dark:border-white/10 dark:bg-black/90">
           <nav className="flex items-center gap-1">
             {navigation.map((item) => (
               <a
@@ -42,7 +70,7 @@ function NavBar() {
 
           <Link
             to="/login"
-            className="rounded-full px-5 py-2 text-sm font-medium text-black transition hover:text-[#FFBA7D] dark:text-white"
+            className="rounded-full px-5 py-2 text-sm font-medium text-black transition-colors duration-300 hover:text-[#FFBA7D] dark:text-white"
           >
             Login
           </Link>
