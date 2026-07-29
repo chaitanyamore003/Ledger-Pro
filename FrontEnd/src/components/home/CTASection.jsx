@@ -3,40 +3,56 @@ import { ArrowRight } from "lucide-react";
 
 function CTASection() {
   return (
-    <section className="border-t border-slate-200 bg-white py-24 transition-colors dark:border-slate-800 dark:bg-slate-950">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="rounded-3xl border border-slate-200 bg-slate-50 px-8 py-16 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:shadow-black/20">
-          <span className="inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-4 py-1.5 text-sm font-medium text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-200">
-            Enterprise Banking Platform
-          </span>
+    <section id="about" className="relative overflow-hidden bg-black py-36">
+      {/* Accent Glow */}
 
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Ready to modernize your banking workflow?
-          </h2>
+      <div className="absolute left-1/2 top-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFBA7D]/20 blur-[140px]" />
 
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-500 dark:text-slate-300">
-            Experience secure authentication, streamlined ledger management, and
-            enterprise-grade architecture built for modern financial
-            applications.
-          </p>
+      <div className="relative mx-auto max-w-5xl px-8 text-center">
+        <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#FFBA7D]">
+          START YOUR JOURNEY
+        </p>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
-              to="/register"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-800 dark:bg-indigo-500 dark:hover:bg-indigo-400"
-            >
-              Get Started
-              <ArrowRight size={18} />
-            </Link>
+        <h2 className="mt-8 text-5xl font-bold leading-tight tracking-tight text-white md:text-7xl">
+          Banking built
+          <br />
+          for the future.
+        </h2>
 
-            <Link
-              to="/login"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
-            >
-              Sign In
-            </Link>
-          </div>
+        <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-neutral-300">
+          Experience a modern banking platform with secure authentication,
+          intelligent ledger management, and an interface designed for speed,
+          clarity, and confidence.
+        </p>
+
+        {/* Buttons */}
+
+        <div className="mt-14 flex flex-col items-center justify-center gap-5 sm:flex-row">
+          <Link
+            to="/register"
+            className="group inline-flex items-center gap-2 rounded-full bg-[#FFBA7D] px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
+          >
+            Create Free Account
+            <ArrowRight
+              size={18}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </Link>
+
+          <Link
+            to="/login"
+            className="rounded-full border border-white/20 px-8 py-4 text-sm font-semibold text-white transition hover:border-[#FFBA7D] hover:text-[#FFBA7D]"
+          >
+            Sign In
+          </Link>
         </div>
+
+        {/* Bottom Text */}
+
+        <p className="mt-12 text-sm text-neutral-500">
+          Secure authentication • Modern architecture • Built with React &
+          Node.js
+        </p>
       </div>
     </section>
   );

@@ -1,89 +1,84 @@
-import {
-  ArrowLeftRight,
-  BarChart3,
-  Landmark,
-  ShieldCheck,
-  Users,
-  WalletCards,
-} from "lucide-react";
-
-import FeatureCard from "./FeatureCard";
+import { ShieldCheck, WalletCards, BarChart3 } from "lucide-react";
 
 const features = [
   {
+    number: "01",
     icon: ShieldCheck,
     title: "Enterprise Authentication",
     description:
-      "Secure JWT authentication with refresh token rotation and protected APIs for reliable user access.",
+      "Secure authentication powered by JWT, refresh token rotation, OTP verification, protected routes and enterprise session management.",
   },
   {
+    number: "02",
     icon: WalletCards,
-    title: "Ledger Management",
+    title: "Smart Ledger Management",
     description:
-      "Create, organize and manage banking ledgers, accounts and financial records with complete accuracy.",
+      "Manage accounts, balances, transfers and transactions with a banking experience designed for speed and reliability.",
   },
   {
-    icon: ArrowLeftRight,
-    title: "Secure Transactions",
-    description:
-      "Record deposits, withdrawals and transfers while maintaining a complete transaction history.",
-  },
-  {
-    icon: Users,
-    title: "Role Based Access",
-    description:
-      "Assign permissions for administrators, managers and employees to ensure secure operations.",
-  },
-  {
+    number: "03",
     icon: BarChart3,
-    title: "Analytics & Reports",
+    title: "Analytics & Insights",
     description:
-      "Visualize account activity and financial insights through modern dashboards and reports.",
-  },
-  {
-    icon: Landmark,
-    title: "Scalable Architecture",
-    description:
-      "Built using React, Node.js, Express and MongoDB with a clean, enterprise-ready architecture.",
+      "Monitor financial activity through clean dashboards, intelligent reporting and real-time operational visibility.",
   },
 ];
 
 function Features() {
   return (
-    <section
-      id="features"
-      className="bg-slate-50 py-24 transition-colors dark:bg-slate-900"
-    >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Section Header */}
+    <section id="features" className="bg-white py-20 dark:bg-black">
+      <div className="mx-auto max-w-7xl px-8">
+        {/* Header */}
 
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-200">
-            Features
-          </span>
-
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Everything You Need to Manage Banking Operations
-          </h2>
-
-          <p className="mt-5 text-lg leading-8 text-slate-500 dark:text-slate-300">
-            LedgerFlow provides secure authentication, powerful ledger
-            management, transaction tracking and enterprise-grade architecture
-            for modern banking applications.
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-neutral-500">
+            FEATURES
           </p>
+
+          <h2 className="mt-6 text-6xl font-bold leading-tight tracking-tight text-black dark:text-white">
+            Banking software
+            <br />
+            built for today.
+          </h2>
         </div>
 
-        {/* Features Grid */}
+        {/* Cards */}
 
-        <div className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {features.map((feature) => (
-            <FeatureCard
-              key={feature.title}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-            />
-          ))}
+        <div className="mt-20 grid gap-8 lg:grid-cols-3">
+          {features.map((feature) => {
+            const Icon = feature.icon;
+
+            return (
+              <div
+                key={feature.number}
+                className="group flex h-full flex-col rounded-[32px] border border-black/10 bg-white p-10 transition-all duration-500 hover:-translate-y-2 hover:border-[#FFBA7D] dark:border-white/10 dark:bg-neutral-950"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-5xl font-black text-[#FFBA7D]">
+                    {feature.number}
+                  </span>
+
+                  <div className="rounded-2xl bg-[#FFBA7D]/20 p-4">
+                    <Icon size={28} />
+                  </div>
+                </div>
+
+                <h3 className="mt-12 text-3xl font-bold leading-tight text-black dark:text-white">
+                  {feature.title}
+                </h3>
+
+                <p className="mt-6 leading-8 text-neutral-600 dark:text-neutral-400">
+                  {feature.description}
+                </p>
+
+                <div className="mt-auto pt-12">
+                  <button className="font-semibold text-black transition group-hover:text-[#FFBA7D] dark:text-white">
+                    Learn More →
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,115 +1,112 @@
 import { Link, Outlet } from "react-router-dom";
-import {
-  ArrowLeft,
-  CheckCircle2,
-  Database,
-  LockKeyhole,
-  ShieldCheck,
-} from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import ThemeToggle from "../components/ui/ThemeToggle";
+import { motion } from "framer-motion";
 
-const assuranceItems = [
-  {
-    icon: ShieldCheck,
-    title: "Secure access",
-    description: "Protected sessions with JWT and refresh token support.",
-  },
-  {
-    icon: LockKeyhole,
-    title: "Verified identity",
-    description: "Email verification keeps account access intentional.",
-  },
-  {
-    icon: Database,
-    title: "Ledger-ready",
-    description: "Designed for reliable banking and transaction workflows.",
-  },
+const features = [
+  "JWT Authentication",
+  "Email Verification",
+  "Protected Banking Sessions",
 ];
 
 function AuthLayout() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white text-slate-950 transition-colors dark:bg-slate-950 dark:text-slate-100">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.08),transparent_55%)] dark:bg-[radial-gradient(circle_at_top,rgba(129,140,248,0.18),transparent_55%)]" />
+    <div className="relative min-h-screen overflow-hidden bg-white text-black transition-colors duration-500 dark:bg-black dark:text-white">
+      {/* Background Glow */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#FFBA7D]/15 blur-[140px]" />
 
-      <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 pt-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-3">
-          <img
-            src="/ledger-flow-logo.png"
-            alt="LedgerFlow"
-            className="h-11 w-auto"
-          />
+        <div className="absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-[#FFBA7D]/10 blur-[120px]" />
+      </div>
 
-          <div>
-            <h1 className="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
-              LedgerFlow
-            </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Enterprise Banking Platform
-            </p>
-          </div>
+      {/* Header */}
+
+      <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-8 py-8">
+        <Link
+          to="/"
+          className="font-brand text-3xl tracking-tight text-black dark:text-white"
+        >
+          LEDGER<span className="text-[#FFBA7D]">PRO</span>
         </Link>
 
         <ThemeToggle />
       </header>
 
-      <main className="relative z-10 mx-auto grid min-h-[calc(100vh-92px)] max-w-7xl items-center gap-12 px-6 py-12 lg:grid-cols-[1fr_440px] lg:px-8">
-        <section className="hidden max-w-2xl lg:block">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-200">
-            <CheckCircle2 size={16} />
-            Secure Ledger Access
-          </span>
+      {/* Content */}
 
-          <h2 className="mt-8 text-5xl font-bold tracking-tight text-slate-900 lg:text-6xl dark:text-white">
-            Banking access,
-            <span className="block text-indigo-700 dark:text-indigo-300">
-              kept simple.
-            </span>
-          </h2>
+      <main className="relative z-10 mx-auto flex min-h-[calc(100vh-100px)] max-w-7xl items-center px-8 pb-12">
+        <div className="grid w-full items-center gap-20 lg:grid-cols-[1.1fr_0.9fr]">
+          {/* Left Section */}
 
-          <p className="mt-7 max-w-xl text-lg leading-8 text-slate-500 dark:text-slate-300">
-            Sign in or create an account to manage customer records, banking
-            ledgers, and financial operations in a focused enterprise workspace.
-          </p>
+          <motion.section
+            className="hidden lg:block"
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className="font-semibold uppercase tracking-[0.3em] text-[#FFBA7D]">
+              Secure Authentication
+            </p>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-3">
-            {assuranceItems.map((item) => {
-              const Icon = item.icon;
+            <h1 className="mt-8 font-brand text-7xl uppercase leading-[0.9] tracking-tight xl:text-[7rem]">
+              Banking
+              <br />
+              starts
+              <br />
+              with
+              <br />
+              <span className="text-[#FFBA7D]">trust.</span>
+            </h1>
 
-              return (
-                <div
-                  key={item.title}
-                  className="rounded-2xl border border-slate-200 bg-white/75 p-5 shadow-sm backdrop-blur-xl transition-colors dark:border-slate-800 dark:bg-slate-900/70 dark:shadow-black/20"
+            <p className="mt-10 max-w-lg text-lg leading-8 text-neutral-600 dark:text-neutral-400">
+              Securely access your banking workspace to manage customers,
+              transactions, ledgers and financial insights from one modern
+              platform.
+            </p>
+
+            {/* Features */}
+
+            <div className="mt-12 space-y-6">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.35 + index * 0.15,
+                    duration: 0.5,
+                  }}
+                  className="flex items-center gap-4 text-lg"
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">
-                    <Icon size={21} />
+                  <div className="rounded-full bg-[#FFBA7D]/15 p-2">
+                    <CheckCircle2 size={18} className="text-[#FFBA7D]" />
                   </div>
 
-                  <h3 className="mt-4 text-sm font-semibold text-slate-900 dark:text-white">
-                    {item.title}
-                  </h3>
+                  <span>{feature}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
 
-                  <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-                    {item.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </section>
+          {/* Right */}
 
-        <section className="w-full justify-self-center lg:justify-self-end">
-          <div className="rounded-3xl border border-slate-200 bg-white/90 p-8 shadow-xl shadow-slate-900/5 backdrop-blur-xl transition-colors dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-black/30">
-            <Link
-              to="/"
-              className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition hover:text-indigo-700 dark:text-slate-300 dark:hover:text-indigo-200"
-            >
-              <ArrowLeft size={16} />
-              Back to Home
-            </Link>
+          <motion.section
+            className="mx-auto w-full max-w-3xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+            }}
+          >
+            <div className="relative w-full rounded-[40px] border border-black/10 bg-white px-16 py-14 shadow-[0_40px_120px_rgba(0,0,0,0.08)] transition-all duration-500 dark:border-white/10 dark:bg-neutral-950 dark:shadow-[0_40px_120px_rgba(0,0,0,0.55)]">
+              {/* Subtle Glow */}
+              <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#FFBA7D]/10 blur-3xl" />
 
-            <Outlet />
-          </div>
-        </section>
+              <Outlet />
+            </div>
+          </motion.section>
+        </div>
       </main>
     </div>
   );

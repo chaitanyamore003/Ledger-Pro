@@ -9,7 +9,10 @@ function ThemeTransition({ show, theme }) {
           initial={{ opacity: 0, scale: 0.4 }}
           animate={{ opacity: 0.35, scale: 1.2 }}
           exit={{ opacity: 0, scale: 1.7 }}
-          transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: 1.1,
+            ease: "easeInOut",
+          }}
           style={{
             background:
               theme === "dark"

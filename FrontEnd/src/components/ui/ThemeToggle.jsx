@@ -16,7 +16,7 @@ function ThemeToggle() {
       disabled={isTransitioning}
       className="
         flex h-10 w-10 items-center justify-center
-        rounded-xl border border-slate-300
+        rounded-3xl border border-slate-300
         bg-white/70
         text-slate-700
         transition

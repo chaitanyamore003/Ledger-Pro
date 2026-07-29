@@ -1,62 +1,99 @@
-import { Database, Lock, ShieldCheck, Zap } from "lucide-react";
+import {
+  Atom,
+  Server,
+  Database,
+  ShieldCheck,
+  Code2,
+  Cloud,
+  GitBranch,
+  Layers3,
+} from "lucide-react";
 
-import SectionTitle from "./SectionTitle";
-
-const stats = [
+const technologies = [
   {
-    icon: ShieldCheck,
-    value: "JWT",
-    label: "Secure Authentication",
+    icon: Atom,
+    name: "React 19",
+    category: "Frontend",
   },
   {
-    icon: Lock,
-    value: "RBAC",
-    label: "Role-Based Access",
+    icon: Server,
+    name: "Node.js",
+    category: "Runtime",
+  },
+  {
+    icon: Layers3,
+    name: "Express.js",
+    category: "Backend",
   },
   {
     icon: Database,
-    value: "MongoDB",
-    label: "Scalable Database",
+    name: "MongoDB",
+    category: "Database",
   },
   {
-    icon: Zap,
-    value: "REST API",
-    label: "High Performance",
+    icon: ShieldCheck,
+    name: "JWT",
+    category: "Authentication",
+  },
+  {
+    icon: Cloud,
+    name: "REST API",
+    category: "API",
+  },
+  {
+    icon: GitBranch,
+    name: "Git & GitHub",
+    category: "Version Control",
+  },
+  {
+    icon: Code2,
+    name: "Tailwind CSS",
+    category: "Styling",
   },
 ];
 
 function StatsSection() {
   return (
-    <section
-      id="stats"
-      className="bg-white py-24 transition-colors dark:bg-slate-950"
-    >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionTitle
-          badge="Technology"
-          title="Built for Security, Performance and Scale"
-          description="LedgerFlow is engineered using modern technologies and best practices to deliver a secure, reliable and scalable banking platform."
-        />
+    <section id="technology" className="bg-[#FAFAFA] py-20 dark:bg-[#050505]">
+      <div className="mx-auto max-w-7xl px-8">
+        {/* Header */}
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => {
-            const Icon = stat.icon;
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-neutral-500">
+            TECHNOLOGY STACK
+          </p>
+
+          <h2 className="mt-6 text-5xl font-bold tracking-tight text-black md:text-6xl dark:text-white">
+            Powered by modern technologies.
+          </h2>
+
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-600 dark:text-neutral-400">
+            LedgerPro is built using a modern full-stack architecture that
+            prioritizes performance, scalability, maintainability, and security.
+          </p>
+        </div>
+
+        {/* Technology Grid */}
+
+        <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {technologies.map((tech) => {
+            const Icon = tech.icon;
 
             return (
               <div
-                key={stat.label}
-                className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/70 dark:shadow-black/20 dark:hover:border-indigo-400/30"
+                key={tech.name}
+                className="group rounded-[28px] border border-black/10 bg-white p-8 transition-all duration-300 hover:-translate-y-2 hover:border-[#FFBA7D] dark:border-white/10 dark:bg-neutral-950"
               >
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">
-                  <Icon size={28} />
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFBA7D]/15">
+                  <Icon size={28} className="text-black dark:text-white" />
                 </div>
 
-                <h3 className="mt-6 text-3xl font-bold text-slate-900 dark:text-white">
-                  {stat.value}
+                <h3 className="mt-8 text-2xl font-bold text-black dark:text-white">
+                  {tech.name}
                 </h3>
 
-                <p className="mt-2 text-slate-500 dark:text-slate-400">
-                  {stat.label}
+                <p className="mt-3 text-sm uppercase tracking-wider text-[#FFBA7D]">
+                  {tech.category}
                 </p>
               </div>
             );

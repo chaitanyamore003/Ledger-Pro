@@ -96,66 +96,66 @@ function Login() {
 
   return (
     <div className="w-full">
-      <div className="mb-8">
-        <p className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">
-          Account access
+      {/* Heading */}
+
+      <div className="mb-10">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-[#FFBA7D]">
+          Secure Login
         </p>
 
-        <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Welcome back
+        <h2 className="mt-4 text-4xl font-bold tracking-tight text-black dark:text-white">
+          Welcome back.
         </h2>
 
-        <p className="mt-3 leading-7 text-slate-500 dark:text-slate-400">
-          Sign in to continue managing your LedgerFlow workspace.
+        <p className="mt-4 max-w-md leading-7 text-neutral-600 dark:text-neutral-400">
+          Sign in to continue managing your LedgerPro banking workspace.
         </p>
       </div>
 
+      {/* Errors */}
+
       {errors.length > 0 && (
-        <div className="mb-6 rounded-2xl border border-red-200 bg-red-50/80 p-4 dark:border-red-900/70 dark:bg-red-950/40">
-          <div className="flex items-start gap-3">
-            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-100 text-sm font-bold text-red-700 dark:bg-red-500/10 dark:text-red-300">
-              !
-            </span>
+        <div className="mb-8 rounded-2xl border border-red-200 bg-red-50 p-5 dark:border-red-900/50 dark:bg-red-950/30">
+          <p className="mb-2 font-semibold text-red-600">
+            Please fix the following:
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-red-700 dark:text-red-300">
-                Please fix the following:
-              </h3>
-
-              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-red-600 dark:text-red-200">
-                {errors.map((error, index) => (
-                  <li key={index}>{error}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          <ul className="list-disc space-y-1 pl-5 text-sm text-red-500">
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
         </div>
       )}
 
-      {showVerifyButton && (
-        <div className="mb-6">
-          <button
-            type="button"
-            onClick={handleVerifyEmail}
-            disabled={loading}
-            className="flex w-full items-center justify-center rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 font-semibold text-indigo-700 transition hover:bg-indigo-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-indigo-400/40 dark:bg-indigo-500/10 dark:text-indigo-200 dark:hover:bg-indigo-500/20"
-          >
-            {loading ? "Sending Verification Email..." : "Verify Email"}
-          </button>
-        </div>
-      )}
+      {/* Success */}
 
       {success && (
-        <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4 dark:border-emerald-900/70 dark:bg-emerald-950/40">
-          <p className="font-medium text-emerald-700 dark:text-emerald-300">
+        <div className="mb-8 rounded-2xl border border-green-200 bg-green-50 p-5 dark:border-green-900/40 dark:bg-green-950/30">
+          <p className="font-medium text-green-700 dark:text-green-300">
             {success}
           </p>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Verify */}
+
+      {showVerifyButton && (
+        <button
+          type="button"
+          onClick={handleVerifyEmail}
+          disabled={loading}
+          className="mb-8 w-full rounded-2xl border border-[#FFBA7D]/30 bg-[#FFBA7D]/10 py-4 font-semibold text-[#FFBA7D] transition hover:bg-[#FFBA7D]/20 disabled:opacity-60"
+        >
+          {loading ? "Sending Verification Email..." : "Verify Email"}
+        </button>
+      )}
+
+      {/* Form */}
+
+      <form onSubmit={handleSubmit} className="space-y-7">
         <div>
-          <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">
+          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
             Email Address
           </label>
 
@@ -170,7 +170,7 @@ function Login() {
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">
+          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
             Password
           </label>
 
@@ -187,7 +187,7 @@ function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-700 px-4 py-3 font-semibold text-white transition hover:bg-indigo-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-indigo-500 dark:hover:bg-indigo-400"
+          className="flex w-full items-center justify-center gap-3 rounded-2xl bg-[#FFBA7D] py-4 text-lg font-semibold text-black transition-all duration-300 hover:scale-[1.01] hover:shadow-lg disabled:opacity-60"
         >
           {loading ? (
             <>
@@ -223,13 +223,16 @@ function Login() {
         </button>
       </form>
 
-      <div className="mt-8 border-t border-slate-200 pt-6 text-center text-sm dark:border-slate-800">
-        <span className="text-slate-600 dark:text-slate-400">
+      {/* Footer */}
+
+      <div className="mt-10 border-t border-black/10 pt-8 text-center dark:border-white/10">
+        <span className="text-neutral-600 dark:text-neutral-400">
           Don't have an account?
-        </span>{" "}
+        </span>
+
         <Link
           to="/register"
-          className="font-semibold text-indigo-700 transition hover:text-indigo-800 hover:underline dark:text-indigo-300 dark:hover:text-indigo-200"
+          className="ml-2 font-semibold text-[#FFBA7D] transition hover:opacity-80"
         >
           Create Account
         </Link>

@@ -1,107 +1,60 @@
-import {
-  ArrowRight,
-  CheckCircle2,
-  Database,
-  Lock,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import HeroPreview from "./HeroPreview";
-
-const highlights = [
-  {
-    icon: ShieldCheck,
-    title: "Enterprise Security",
-  },
-  {
-    icon: Lock,
-    title: "JWT Authentication",
-  },
-  {
-    icon: Database,
-    title: "MongoDB Powered",
-  },
-];
 
 function Hero() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-white transition-colors dark:bg-slate-950"
+      className="relative overflow-hidden bg-white pt-44 pb-5 dark:bg-black"
     >
-      {/* Background Pattern */}
+      {/* Background Glow */}
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.08),transparent_55%)] dark:bg-[radial-gradient(circle_at_top,rgba(129,140,248,0.18),transparent_55%)]" />
+      <div className="absolute left-1/2 top-0 h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-[#FFBA7D]/20 blur-[180px]" />
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-36 pb-24 lg:px-8">
-        <div className="grid items-center gap-20 lg:grid-cols-2">
-          {/* Left */}
+      <div className="relative mx-auto flex max-w-7xl flex-col items-center px-8 text-center">
+        {/* Small Label */}
 
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-200">
-              <CheckCircle2 size={16} />
-              Enterprise Banking Platform
-            </span>
+        <span className="rounded-full border border-black/10 px-5 py-2 text-xs font-medium uppercase tracking-[0.35em] text-neutral-600 dark:border-white/10 dark:text-neutral-400">
+          Enterprise Banking Platform
+        </span>
 
-            <h1 className="mt-8 text-5xl font-bold tracking-tight text-slate-900 lg:text-6xl xl:text-7xl dark:text-white">
-              Banking Infrastructure
-              <span className="block text-indigo-700 dark:text-indigo-300">
-                Built for the Future
-              </span>
-            </h1>
+        {/* Heading */}
 
-            <p className="mt-8 max-w-xl text-lg leading-8 text-slate-500 dark:text-slate-300">
-              LedgerFlow is a modern banking ledger platform that combines
-              enterprise-grade security, scalable architecture and intuitive
-              financial management into one unified workspace.
-            </p>
+        <h1 className="mt-10 max-w-6xl font-brand text-7xl uppercase leading-[0.9] tracking-tight text-black md:text-8xl xl:text-[8.5rem] dark:text-white">
+          Banking
+          <br />
+          <span className="text-[#FFBA7D]">Without</span>
+          <br />
+          Limits.
+        </h1>
 
-            {/* Buttons */}
+        {/* Subtitle */}
 
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link
-                to="/register"
-                className="inline-flex items-center gap-2 rounded-xl bg-indigo-700 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-indigo-800 dark:bg-indigo-500 dark:hover:bg-indigo-400"
-              >
-                Get Started
-                <ArrowRight size={18} />
-              </Link>
+        <p className="mt-8 max-w-2xl text-lg leading-8 text-neutral-600 dark:text-neutral-400">
+          A modern banking operating system built for secure transactions,
+          intelligent financial management, and enterprise-scale performance.
+        </p>
 
-              <Link
-                to="/login"
-                className="rounded-xl border border-slate-300 px-7 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900"
-              >
-                Login
-              </Link>
-            </div>
+        {/* CTA */}
 
-            {/* Highlights */}
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-5">
+          <Link
+            to="/register"
+            className="group inline-flex items-center gap-2 rounded-full bg-[#FFBA7D] px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:-translate-y-1"
+          >
+            Get Started
+            <ArrowRight
+              size={18}
+              className="transition-transform group-hover:translate-x-1"
+            />
+          </Link>
 
-            <div className="mt-14 grid gap-4 sm:grid-cols-3">
-              {highlights.map((item) => {
-                const Icon = item.icon;
-
-                return (
-                  <div
-                    key={item.title}
-                    className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/70 dark:shadow-black/20 dark:hover:border-indigo-400/30"
-                  >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">
-                      <Icon size={22} />
-                    </div>
-
-                    <p className="mt-4 text-sm font-semibold text-slate-900 dark:text-slate-100">
-                      {item.title}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right */}
-
-          <HeroPreview />
+          <Link
+            to="/login"
+            className="rounded-full border border-black px-8 py-4 text-sm font-semibold text-black transition hover:bg-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black"
+          >
+            Explore Platform
+          </Link>
         </div>
       </div>
     </section>
