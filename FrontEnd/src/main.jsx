@@ -12,13 +12,16 @@ import "./index.css";
 import App from "./App.jsx";
 import AuthProvider from "./context/AuthProvider.jsx";
 import ThemeContextProvider from "./context/ThemeContext.jsx";
+import { SidebarProvider } from "./context/SideBarContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeContextProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <SidebarProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </SidebarProvider>
     </ThemeContextProvider>
   </StrictMode>,
 );

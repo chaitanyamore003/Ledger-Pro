@@ -5,6 +5,12 @@ import Login from "../pages/Auth/Login";
 import Dashboard from "../pages/DashBoard";
 import Register from "../pages/Auth/Register";
 import Page404 from "../pages/404";
+import AddTransactions from "../pages/DashBoard/AddTransactions";
+import Accounts from "../pages/DashBoard/Accounts";
+import Overview from "../pages/DashBoard/Overview";
+import Profile from "../pages/DashBoard/Profile";
+import Settings from "../pages/DashBoard/Settings";
+import Transactions from "../pages/DashBoard/Transactions";
 
 import AuthLayout from "../layouts/AuthLayout";
 import ProtectedRoute from "./protectedRoutes";
@@ -29,7 +35,14 @@ function AppRoutes() {
               <Dashboard />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<Overview />} />
+          <Route path="accounts" element={<Accounts />} />
+          <Route path="transactions" element={<Transactions />} />
+          <Route path="add-entry" element={<AddTransactions />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
 
         {/* 404 Page */}
         <Route path="*" element={<Page404 />} />

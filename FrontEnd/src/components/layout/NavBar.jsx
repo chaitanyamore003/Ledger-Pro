@@ -20,14 +20,13 @@ function NavBar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 pt-8">
-        {/* Brand */}
-
         <AnimatePresence>
           {showLogo && (
             <motion.div
-              initial={{ opacity: 0, x: -30, scale: 0.9 }}
+              className="fixed top-6 left-6 z-50"
+              initial={{ opacity: 0, x: -40, scale: 0.9 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -30, scale: 0.9 }}
+              exit={{ opacity: 0, x: -40, scale: 0.9 }}
               transition={{ duration: 0.35, ease: "easeInOut" }}
             >
               <Link

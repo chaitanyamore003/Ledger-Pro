@@ -170,6 +170,143 @@ const postCreateTransaction = async (req, res, next) => {
   });
 };
 
+/**
+ * - Create Initial Funds
+ */
+const postCreateInitialFunds = async (req, res) => {
+  const session = await mongoose.startSession();
+
+  try {
+    const { toAccount, amount, idempotencyKey } = req.body;
+
+    // Validate request body
+    if (!toAccount || amount === undefined || !idempotencyKey) {
+      return res.status(400).json({
+        success: false,
+        message: "toAccount, amount and idempotencyKey are required",
+      });
+    }
+
+    // Validate amount
+    if (typeof amount !== "number" || amount <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Amount must be greater than 0",
+      });
+    }
+
+    // Check duplicate request (Idempotency)
+    const existingTransaction = await transactionModel.findOne({
+      idempotencyKey,
+    });
+
+    if (existingTransaction) {
+      return res.status(409).json({
+        success: false,
+        message: "Duplicate transaction request",
+        transaction: existingTransaction,
+      });
+    }
+
+    // Find recipient account
+    const toUserAccount = await userModel.findById(toAccount);
+
+    if (!toUserAccount) {
+      return res.status(404).json({
+        success: false,
+        message: "Recipient account not found",
+      });
+    }
+
+    // Find system account
+    const fromUserAccount = await userModel.findOne({
+      systemUser: true,
+    });
+
+    if (!fromUserAccount) {
+      return res.status(404).json({
+        success: false,
+        message: "System account not found",
+      });
+    }
+
+    // Prevent self transfer
+    if (fromUserAccount._id.equals(toUserAccount._id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Cannot transfer to the same account",
+      });
+    }
+
+    // Start MongoDB Transaction
+    session.startTransaction();
+
+    // Create Transaction
+    const [transaction] = await transactionModel.create(
+      [
+        {
+          fromAccount: fromUserAccount._id,
+          toAccount: toUserAccount._id,
+          amount,
+          idempotencyKey,
+          status: "PENDING",
+        },
+      ],
+      { session },
+    );
+
+    // Debit Entry
+    await ledgerModel.create(
+      [
+        {
+          account: fromUserAccount._id,
+          amount,
+          transaction: transaction._id,
+          type: "DEBIT",
+        },
+      ],
+      { session },
+    );
+
+    // Credit Entry
+    await ledgerModel.create(
+      [
+        {
+          account: toUserAccount._id,
+          amount,
+          transaction: transaction._id,
+          type: "CREDIT",
+        },
+      ],
+      { session },
+    );
+
+    // Mark transaction completed
+    transaction.status = "COMPLETED";
+    await transaction.save({ session });
+
+    await session.commitTransaction();
+
+    return res.status(201).json({
+      success: true,
+      message: "Initial funds transferred successfully",
+      transaction,
+    });
+  } catch (error) {
+    await session.abortTransaction();
+
+    console.error("Initial Funds Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  } finally {
+    await session.endSession();
+  }
+};
+
 module.exports = {
   postCreateTransaction,
+  postCreateInitialFunds,
 };

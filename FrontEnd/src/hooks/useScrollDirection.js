@@ -4,8 +4,6 @@ export default function useScrollDirection() {
   const [showLogo, setShowLogo] = useState(true);
 
   useEffect(() => {
-    let lastScroll = window.scrollY;
-
     const handleScroll = () => {
       const current = window.scrollY;
 
