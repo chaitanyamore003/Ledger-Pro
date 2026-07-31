@@ -28,10 +28,13 @@ function AuthProvider({ children }) {
   }, []);
 
   // Save authenticated user
-  const login = useCallback(({ user, accessToken }) => {
-    setUser(user);
-    updateAccessToken(accessToken);
-  }, [updateAccessToken]);
+  const login = useCallback(
+    ({ user, accessToken }) => {
+      setUser(user);
+      updateAccessToken(accessToken);
+    },
+    [updateAccessToken],
+  );
 
   // Clear authentication state
   const logout = useCallback(() => {
@@ -49,7 +52,12 @@ function AuthProvider({ children }) {
           user: data.data.user,
           accessToken: data.data.accessToken,
         });
-      } catch {
+      } catch (error) {
+        console.log("Refresh failed");
+        console.log("Status:", error.response?.status);
+        console.log("Response:", error.response?.data);
+        console.log("Cookies:", document.cookie);
+
         logout();
       } finally {
         setLoading(false);
