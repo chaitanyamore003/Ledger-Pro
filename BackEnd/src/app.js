@@ -10,14 +10,22 @@ const app = express();
 
 app.use(morgan("dev"));
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://ledger-pro-eta.vercel.app",
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   }),
 );
-app.use(express.json());
-app.use(cookieParser());
 
 /**
  * Routes
