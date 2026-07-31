@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import useAuth from "../../hooks/useAuth";
 
 function CTASection() {
+  const { isAuthenticated } = useAuth();
   return (
     <section id="about" className="relative overflow-hidden bg-black py-36">
       {/* Accent Glow */}
@@ -29,22 +31,24 @@ function CTASection() {
 
         <div className="mt-14 flex flex-col items-center justify-center gap-5 sm:flex-row">
           <Link
-            to="/register"
+            to={isAuthenticated ? "/dashboard" : "/register"}
             className="group inline-flex items-center gap-2 rounded-full bg-[#FFBA7D] px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
           >
-            Create Free Account
+            {isAuthenticated ? "Go to Dashboard" : "Create Free Account"}
+
             <ArrowRight
               size={18}
               className="transition-transform duration-300 group-hover:translate-x-1"
             />
           </Link>
-
-          <Link
-            to="/login"
-            className="rounded-full border border-white/20 px-8 py-4 text-sm font-semibold text-white transition hover:border-[#FFBA7D] hover:text-[#FFBA7D]"
-          >
-            Sign In
-          </Link>
+          {!isAuthenticated && (
+            <Link
+              to="/login"
+              className="rounded-full border border-white/20 px-8 py-4 text-sm font-semibold text-white transition hover:border-[#FFBA7D] hover:text-[#FFBA7D]"
+            >
+              Sign In
+            </Link>
+          )}
         </div>
 
         {/* Bottom Text */}

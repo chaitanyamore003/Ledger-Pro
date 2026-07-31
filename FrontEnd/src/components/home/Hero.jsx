@@ -1,7 +1,9 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 function Hero() {
+  const { isAuthenticated } = useAuth();
   return (
     <section
       id="home"
@@ -39,19 +41,20 @@ function Hero() {
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-5">
           <Link
-            to="/register"
+            to={isAuthenticated ? "/dashboard" : "/register"}
             className="group inline-flex items-center gap-2 rounded-full bg-[#FFBA7D] px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:-translate-y-1"
           >
-            Get Started
+            {isAuthenticated ? "Go to Dashboard" : "Get Started"}
+
             <ArrowRight
               size={18}
-              className="transition-transform group-hover:translate-x-1"
+              className="transition-transform duration-300 group-hover:translate-x-1"
             />
           </Link>
 
           <Link
-            to="/login"
-            className="rounded-full border border-black px-8 py-4 text-sm font-semibold text-black transition hover:bg-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black"
+            to={isAuthenticated ? "/dashboard" : "/login"}
+            className="rounded-full border border-black px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black"
           >
             Explore Platform
           </Link>

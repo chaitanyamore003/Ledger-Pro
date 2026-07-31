@@ -1,8 +1,10 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import DashboardPreview from "./DashBoardPreview";
+import useAuth from "../../hooks/useAuth";
 
 function DashBoardShowcase() {
+  const { isAuthenticated } = useAuth();
   return (
     <section
       id="dashboard"
@@ -69,7 +71,7 @@ function DashBoardShowcase() {
 
         <div className="mt-16 flex justify-center">
           <Link
-            to="/register"
+            to={isAuthenticated ? "/dashboard" : "/register"}
             className="group inline-flex items-center gap-2 rounded-full bg-[#FFBA7D] px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:-translate-y-1"
           >
             Start Banking

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "../ui/ThemeToggle";
 import useScrollDirection from "../../hooks/useScrollDirection";
 import { useTheme } from "../../hooks/useTheme";
+import useAuth from "../../hooks/useAuth";
 
 const navigation = [
   { name: "Features", href: "#features" },
@@ -13,6 +14,7 @@ const navigation = [
 ];
 
 function NavBar() {
+  const { isAuthenticated } = useAuth();
   const { theme } = useTheme();
 
   const showLogo = useScrollDirection();
@@ -36,7 +38,7 @@ function NavBar() {
                 <img
                   src={
                     theme === "dark"
-                      ? "/ledger-pro-symbol-no-background-white.png"
+                      ? "/ledger-pro-logo-no-background-white.png"
                       : "/ledger-pro-logo-no-background.png"
                   }
                   alt="Ledger Pro Logo"
@@ -68,21 +70,17 @@ function NavBar() {
           <ThemeToggle />
 
           <Link
-            to="/login"
+            to={isAuthenticated ? "/dashboard" : "/login"}
             className="rounded-full px-5 py-2 text-sm font-medium text-black transition-colors duration-300 hover:text-[#FFBA7D] dark:text-white"
           >
-            Login
+            {isAuthenticated ? "Dashboard" : "Login"}
           </Link>
 
           <Link
-            to="/register"
-            className="group ml-2 inline-flex items-center gap-2 rounded-full bg-[#FFBA7D] px-6 py-3 text-sm font-semibold text-black transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02]"
+            to={isAuthenticated ? "/dashboard" : "/register"}
+            className="rounded-full bg-[#FFBA7D] px-6 py-3 text-sm font-semibold text-black transition-all duration-300 hover:scale-105 hover:shadow-lg"
           >
             Get Started
-            <ArrowRight
-              size={16}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
           </Link>
         </div>
       </div>

@@ -88,12 +88,8 @@ function SidebarItem({ title, path, icon: Icon, collapsed, onNavigate }) {
 
 function DashboardSidebar() {
   const [loggingOut, setLoggingOut] = useState(false);
-  const {
-    collapsed,
-    mobileOpen,
-    toggleSidebar,
-    closeMobileSidebar,
-  } = useSidebar();
+  const { collapsed, mobileOpen, toggleSidebar, closeMobileSidebar } =
+    useSidebar();
   const { logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -152,7 +148,7 @@ function DashboardSidebar() {
               src="/ledger-pro-logo-no-background.png"
               alt="Ledger Pro"
               draggable={false}
-              className={`h-10 w-auto object-contain transition-[width,opacity,transform] duration-300 dark:hidden ${
+              className={`h-28 w-auto object-contain transition-[width,opacity,transform] duration-300 dark:hidden ${
                 collapsed
                   ? "lg:w-0 lg:scale-95 lg:opacity-0"
                   : "lg:w-40 lg:scale-100 lg:opacity-100"
@@ -162,7 +158,7 @@ function DashboardSidebar() {
               src="/ledger-pro-logo-no-background-white.png"
               alt="Ledger Pro"
               draggable={false}
-              className={`hidden h-10 w-auto object-contain transition-[width,opacity,transform] duration-300 dark:block ${
+              className={`hidden h-28 w-auto object-contain transition-[width,opacity,transform] duration-300 dark:block ${
                 collapsed
                   ? "lg:w-0 lg:scale-95 lg:opacity-0"
                   : "lg:w-40 lg:scale-100 lg:opacity-100"
@@ -242,7 +238,9 @@ function DashboardSidebar() {
               className={`group flex h-11 w-full items-center gap-3 rounded-lg px-3 text-sm font-medium text-red-500 transition-colors duration-200 hover:bg-red-50 dark:hover:bg-red-500/10 ${
                 collapsed ? "lg:justify-center lg:gap-0 lg:px-0" : "lg:gap-3"
               } disabled:cursor-not-allowed disabled:opacity-60`}
-              title={collapsed ? (loggingOut ? "Logging out" : "Logout") : undefined}
+              title={
+                collapsed ? (loggingOut ? "Logging out" : "Logout") : undefined
+              }
             >
               <LogOut size={20} className="shrink-0" />
 
