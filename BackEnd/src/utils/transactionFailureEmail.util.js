@@ -9,7 +9,7 @@ const generateTransactionFailureHtml = (
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
 
       <div style="background:#dc2626;padding:20px;text-align:center;">
-        <h2 style="color:#ffffff;margin:0;">LedgerFlow</h2>
+        <h2 style="color:#ffffff;margin:0;">Ledger Pro</h2>
       </div>
 
       <div style="padding:30px;">
@@ -57,7 +57,7 @@ const generateTransactionFailureHtml = (
 
         <p>
           Regards,<br>
-          <strong>LedgerFlow Team</strong>
+          <strong>Ledger Pro Team</strong>
         </p>
 
       </div>
@@ -88,10 +88,10 @@ Reason           : ${reason}
 
 No amount has been debited from your account.
 
-If you believe this is an error, please contact LedgerFlow Support.
+If you believe this is an error, please contact Ledger Pro Support.
 
 Regards,
-LedgerFlow Team
+Ledger Pro Team
 `;
 };
 

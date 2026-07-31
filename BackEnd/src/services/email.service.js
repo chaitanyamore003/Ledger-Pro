@@ -34,7 +34,7 @@ transporter.verify((error) => {
 const sendEmail = async (to, subject, text = "", html = "") => {
   try {
     const info = await transporter.sendMail({
-      from: `"LedgerFlow" <${config.GOOGLE_USER}>`,
+      from: `"Ledger Pro" <${config.GOOGLE_USER}>`,
       to,
       subject,
       text,
