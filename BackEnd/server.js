@@ -7,5 +7,5 @@ const connectToDB = require("./src/config/db");
 connectToDB();
 
 app.listen(config.PORT, () => {
-  console.log(`Server Running on PORT - http://localhost:${config.PORT}`);
+  console.log(`Server Running on PORT - ${config.PORT}`);
 });
