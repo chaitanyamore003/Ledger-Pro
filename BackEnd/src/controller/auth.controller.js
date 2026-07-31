@@ -413,7 +413,10 @@ const postVerifyEmail = async (req, res) => {
     await user.save();
 
     // Delete OTP after successful verification
-    await verification.deleteOne();
+    await emailVerificationModel.deleteMany({
+      user: user._id,
+      purpose: "EMAIL_VERIFICATION",
+    });
 
     return res.status(200).json({
       success: true,
