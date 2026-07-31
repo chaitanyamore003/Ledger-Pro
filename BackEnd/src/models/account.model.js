@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const ledgerModel = require("../models/ledger.model");
-const { $where } = require("./user.model");
 
 const accountSchema = new mongoose.Schema(
   {

@@ -1,11 +1,6 @@
-import { Landmark, PlusCircle, Wallet } from "lucide-react";
-
-const accounts = [
-  { name: "Savings", type: "Primary", balance: 74500 },
-  { name: "Business", type: "Current", balance: 38000 },
-  { name: "Cash", type: "Wallet", balance: 12000 },
-  { name: "Emergency Fund", type: "Reserve", balance: 52500 },
-];
+import { useEffect, useState } from "react";
+import { Landmark, Wallet } from "lucide-react";
+import { getAccounts } from "../../services/ledgerApi";
 
 const formatCurrency = (amount) =>
   new Intl.NumberFormat("en-IN", {
@@ -15,6 +10,28 @@ const formatCurrency = (amount) =>
   }).format(amount);
 
 function Accounts() {
+  const [accounts, setAccounts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const loadAccounts = async () => {
+      try {
+        setError("");
+        const { data } = await getAccounts();
+        setAccounts(data.data || data.accounts || []);
+      } catch (requestError) {
+        setError(
+          requestError.response?.data?.message || "Unable to load accounts.",
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAccounts();
+  }, []);
+
   return (
     <div className="space-y-6">
       <section className="flex flex-col gap-4 rounded-lg border border-black/10 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-neutral-950 sm:flex-row sm:items-center sm:justify-between">
@@ -26,42 +43,63 @@ function Accounts() {
             Ledger Accounts
           </h2>
           <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
-            Review balances and account categories in one place.
+            Your primary ledger account.
           </p>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-[#FFBA7D] px-4 text-sm font-semibold text-black transition hover:bg-[#f5a862]"
-        >
-          <PlusCircle size={20} />
-          New Account
-        </button>
+        <div className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-black/10 px-4 text-sm font-semibold text-neutral-800 dark:border-white/10 dark:text-white">
+          <Landmark size={20} />
+          One Account
+        </div>
       </section>
 
+      {error && (
+        <div className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm font-medium text-red-700 dark:text-red-300">
+          {error}
+        </div>
+      )}
+
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {accounts.map((account) => (
-          <article
-            key={account.name}
-            className="rounded-lg border border-black/10 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-neutral-950"
-          >
-            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-[#FFBA7D]/15">
-              <Landmark size={22} className="text-[#FFBA7D]" />
-            </div>
+        {loading &&
+          Array.from({ length: 1 }).map((_, index) => (
+            <article
+              key={index}
+              className="rounded-lg border border-black/10 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-neutral-950"
+            >
+              <div className="mb-5 h-11 w-11 animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
+              <div className="h-4 w-24 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+              <div className="mt-3 h-6 w-36 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+              <div className="mt-5 h-5 w-32 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+            </article>
+          ))}
 
-            <p className="text-sm text-neutral-500 dark:text-neutral-400">
-              {account.type}
-            </p>
-            <h3 className="mt-1 text-lg font-semibold text-neutral-950 dark:text-white">
-              {account.name}
-            </h3>
+        {!loading &&
+          accounts.map((account) => (
+            <article
+              key={account._id}
+              className="rounded-lg border border-black/10 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-neutral-950"
+            >
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-[#FFBA7D]/15">
+                <Landmark size={22} className="text-[#FFBA7D]" />
+              </div>
 
-            <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-neutral-800 dark:text-neutral-200">
-              <Wallet size={18} />
-              {formatCurrency(account.balance)}
-            </div>
-          </article>
-        ))}
+              <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                {account.currency} | {account.status}
+              </p>
+              <h3 className="mt-1 text-lg font-semibold text-neutral-950 dark:text-white">
+                {account.name || "Primary Account"}
+              </h3>
+
+              <p className="mt-3 break-all text-xs text-neutral-500">
+                {account._id}
+              </p>
+
+              <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-neutral-800 dark:text-neutral-200">
+                <Wallet size={18} />
+                {formatCurrency(account.balance ?? 0)}
+              </div>
+            </article>
+          ))}
       </section>
     </div>
   );

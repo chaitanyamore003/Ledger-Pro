@@ -137,7 +137,7 @@ function DashboardSidebar() {
           }`}
         >
           <Link
-            to="/dashboard"
+            to="/"
             onClick={closeMobileSidebar}
             className={`relative flex min-w-0 items-center ${
               collapsed ? "lg:h-10 lg:w-10 lg:flex-none" : "flex-1"

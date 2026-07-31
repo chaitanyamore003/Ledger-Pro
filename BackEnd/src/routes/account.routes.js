@@ -16,6 +16,39 @@ accountRouter.post(
 );
 
 /**
+ * - GET /api/accounts/summary
+ * - Dashboard summary for the logged in user
+ * - Protected Route
+ */
+accountRouter.get(
+  "/summary",
+  auth.authMiddleware,
+  accountController.getDashboardSummary,
+);
+
+/**
+ * - POST /api/accounts/initial-funds
+ * - Initialize the logged in user's first funds
+ * - Protected Route
+ */
+accountRouter.post(
+  "/initial-funds",
+  auth.authMiddleware,
+  accountController.postCreateInitialFunds,
+);
+
+/**
+ * - GET /api/accounts/demo-recipients
+ * - Demo recipient account ids for sample transactions
+ * - Protected Route
+ */
+accountRouter.get(
+  "/demo-recipients",
+  auth.authMiddleware,
+  accountController.getDemoRecipientAccounts,
+);
+
+/**
  * - GET /api/accounts
  * - Get all accounts of the logged in user
  * - Protected Route

@@ -1,26 +1,25 @@
 import { CalendarDays, Landmark, ReceiptText, Wallet } from "lucide-react";
 
-const summary = [
+const buildSummary = (dashboard) => [
   {
     title: "Current Balance",
-    value: 124500,
+    value: dashboard?.currentBalance ?? 0,
     type: "currency",
     icon: Wallet,
   },
   {
     title: "Total Accounts",
-    value: "4",
+    value: dashboard?.totalAccounts ?? 1,
     icon: Landmark,
   },
   {
     title: "Transactions",
-    value: "328",
+    value: dashboard?.totalTransactions ?? 0,
     icon: ReceiptText,
   },
   {
     title: "This Month",
-    value: 18420,
-    type: "currency",
+    value: dashboard?.monthlyTransactions ?? 0,
     icon: CalendarDays,
   },
 ];
@@ -35,7 +34,9 @@ const formatValue = ({ value, type }) => {
   }).format(value);
 };
 
-function SummaryCards() {
+function SummaryCards({ dashboard, loading = false }) {
+  const summary = buildSummary(dashboard);
+
   return (
     <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {summary.map(({ title, icon: Icon, ...item }) => (
@@ -54,8 +55,12 @@ function SummaryCards() {
             {title}
           </p>
 
-          <h2 className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-white">
-            {formatValue(item)}
+          <h2 className="mt-2 min-h-8 text-2xl font-semibold text-neutral-950 dark:text-white">
+            {loading ? (
+              <span className="block h-7 w-24 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+            ) : (
+              formatValue(item)
+            )}
           </h2>
         </div>
       ))}
