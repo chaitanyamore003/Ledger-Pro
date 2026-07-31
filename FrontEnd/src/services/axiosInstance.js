@@ -7,7 +7,7 @@ import {
 import { refreshToken } from "./authApi";
 
 const axiosInstance = axios.create({
-  baseURL: "https://ledger-pro.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -28,7 +28,6 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// Refresh expired access token and retry request
 // Refresh expired access token and retry request
 axiosInstance.interceptors.response.use(
   (response) => response,

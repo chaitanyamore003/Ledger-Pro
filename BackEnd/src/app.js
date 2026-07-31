@@ -6,14 +6,13 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 
-
 const app = express();
 
 app.use(morgan("dev"));
 
 app.use(
   cors({
-    origin: "https://ledger-pro-eta.vercel.app/",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   }),
 );
