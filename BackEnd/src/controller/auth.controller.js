@@ -50,6 +50,7 @@ const postRegister = async (req, res) => {
       // Send verification email
       await emailService.sendVerificationEmail(user.email, user.name, otp);
     } catch (emailError) {
+      console.log(emailError);
       // Roll back if email sending fails
       await verification.deleteOne();
       await user.deleteOne();
