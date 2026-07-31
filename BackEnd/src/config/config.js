@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const requiredEnvVars = [
-  "PORT",
   "MONGO_URL",
   "JWT_SECRET",
   "GOOGLE_CLIENT_ID",
@@ -19,7 +18,7 @@ requiredEnvVars.forEach((key) => {
 });
 
 const config = {
-  PORT: process.env.PORT,
+  PORT: process.env.PORT || 3001,
   MONGO_URL: process.env.MONGO_URL,
   JWT_SECRET: process.env.JWT_SECRET,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
