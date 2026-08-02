@@ -120,9 +120,6 @@ A production-grade full-stack financial ledger management system built with the 
 
 # 🏗 Architecture
 
-<p align="center">
-<img src="docs/architecture.png" width="100%">
-</p>
 
 ```
 Client
@@ -223,9 +220,6 @@ Ledger-Pro
 
 # 🔐 Authentication Flow
 
-<p align="center">
-<img src="docs/auth-flow.png" width="100%">
-</p>
 
 ```
 Register
@@ -249,10 +243,6 @@ Protected Routes
 ---
 
 # 💳 Transaction Flow
-
-<p align="center">
-<img src="docs/transaction-flow.png" width="100%">
-</p>
 
 ```
 Validate Request
